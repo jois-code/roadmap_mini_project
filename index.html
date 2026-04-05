@@ -3,32 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Interactive 18-week learning roadmaps for backend, networking, frontend, systems, and AI/ML.">
-  <meta name="theme-color" content="#f6f1e8">
-  <title>Engineering Learning Roadmaps</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <meta name="description" content="18-week self-study roadmaps for backend, networking, frontend, systems, and AI/ML — structured phases, weekly topics, and project milestones.">
+  <title>Mini Project Roadmap — Learning Tracks</title>
   <style>
+    /* Design tokens: self-contained for GitHub Pages (no external CSS). */
     :root {
-      --font-sans: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      --color-page-bg: #f6f1e8;
-      --color-page-bg-alt: #fcf8f0;
-      --color-surface: rgba(255, 255, 255, 0.82);
-      --color-surface-strong: #ffffff;
-      --color-surface-muted: #f7f2ea;
-      --color-border: rgba(51, 38, 22, 0.12);
-      --color-border-strong: rgba(51, 38, 22, 0.2);
-      --color-text-primary: #241c13;
-      --color-text-secondary: #5e5448;
-      --color-text-tertiary: #8c8174;
-      --color-shadow: rgba(41, 29, 14, 0.09);
-      --radius-md: 14px;
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --radius-2xl: 32px;
-      --shadow-panel: 0 24px 60px var(--color-shadow);
-      --shadow-card: 0 14px 32px rgba(41, 29, 14, 0.06);
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --color-text-primary: #1a1a18;
+      --color-text-secondary: #5c5b56;
+      --color-text-tertiary: #8a8880;
+      --color-background-primary: #fdfcfa;
+      --color-background-secondary: #f4f2ec;
+      --color-border-secondary: #d9d5cb;
+      --color-border-tertiary: #e8e4db;
+      --border-radius-md: 8px;
+      --border-radius-lg: 12px;
+      --focus-ring: 0 0 0 2px var(--color-background-primary), 0 0 0 4px #185fa5;
     }
 
     *,
@@ -37,668 +27,550 @@
       box-sizing: border-box;
     }
 
-    html {
-      color-scheme: light;
-    }
-
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.5;
       color: var(--color-text-primary);
-      line-height: 1.6;
-      background:
-        radial-gradient(circle at top left, rgba(230, 241, 251, 0.92), transparent 38%),
-        radial-gradient(circle at 85% 15%, rgba(251, 234, 240, 0.9), transparent 30%),
-        linear-gradient(180deg, var(--color-page-bg-alt), var(--color-page-bg));
+      background: var(--color-background-primary);
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: auto;
-      pointer-events: none;
-      z-index: 0;
-      border-radius: 999px;
-      filter: blur(20px);
-      opacity: 0.8;
-    }
-
-    body::before {
-      top: 8%;
-      right: -8rem;
-      width: 20rem;
-      height: 20rem;
-      background: rgba(175, 169, 236, 0.22);
-    }
-
-    body::after {
-      bottom: 6%;
-      left: -7rem;
-      width: 18rem;
-      height: 18rem;
-      background: rgba(239, 159, 39, 0.16);
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    .page-shell {
-      position: relative;
-      z-index: 1;
-      width: min(1120px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: clamp(1.25rem, 1vw + 1rem, 2rem) 0 3rem;
-    }
-
-    .page-header {
-      margin-bottom: 1.5rem;
-      padding: clamp(1.25rem, 2vw, 2rem);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-2xl);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.72));
-      box-shadow: var(--shadow-panel);
-      backdrop-filter: blur(16px);
-    }
-
-    .page-kicker {
-      margin: 0 0 0.45rem;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #8b5c10;
-    }
-
-    .page-title {
-      margin: 0;
-      max-width: 14ch;
-      font-size: clamp(2rem, 3vw, 3.35rem);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
-    }
-
-    .page-description {
-      max-width: 60ch;
-      margin: 0.95rem 0 0;
-      color: var(--color-text-secondary);
-      font-size: 1rem;
-    }
-
-    .roadmap-app {
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-2xl);
-      background: var(--color-surface);
-      box-shadow: var(--shadow-panel);
-      backdrop-filter: blur(16px);
-      overflow: hidden;
-    }
-
-    .tab-bar {
-      padding: 1rem 1rem 0;
-      border-bottom: 1px solid var(--color-border);
-      background: rgba(255, 255, 255, 0.58);
-    }
-
-    .tab-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .tab-button {
-      border: 1px solid transparent;
-      border-radius: 999px;
-      padding: 0.7rem 1rem;
-      background: rgba(255, 255, 255, 0.78);
-      color: var(--color-text-secondary);
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
-    }
-
-    .tab-button:hover {
-      background: var(--color-surface-muted);
-      color: var(--color-text-primary);
-      transform: translateY(-1px);
-    }
-
-    .tab-button:focus-visible {
-      outline: 3px solid rgba(24, 95, 165, 0.28);
-      outline-offset: 2px;
-    }
-
-    .tab-button[aria-selected="true"] {
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0.75rem;
+      z-index: 100;
+      padding: 0.5rem 1rem;
       background: var(--color-text-primary);
-      color: #ffffff;
-      border-color: var(--color-text-primary);
-      box-shadow: 0 10px 20px rgba(36, 28, 19, 0.12);
+      color: var(--color-background-primary);
+      border-radius: var(--border-radius-md);
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    .roadmap-view {
-      padding: 1.2rem;
+    .skip-link:focus {
+      left: 0.75rem;
+      outline: none;
+      box-shadow: var(--focus-ring);
     }
 
-    .domain-panel {
-      display: grid;
-      gap: 1.5rem;
+    .site-header {
+      padding: 1.75rem 1.25rem 0;
+      max-width: 52rem;
+      margin: 0 auto;
     }
 
-    .domain-intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr);
-      gap: 1rem;
-      align-items: start;
+    .site-header h1 {
+      font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
     }
 
-    .domain-summary,
-    .prerequisite-card,
-    .summary-card,
-    .week-card {
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-strong);
-      box-shadow: var(--shadow-card);
-    }
-
-    .domain-summary,
-    .prerequisite-card,
-    .summary-card {
-      border-radius: var(--radius-xl);
-      padding: 1.2rem 1.25rem;
-    }
-
-    .domain-summary {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), var(--domain-tint));
-    }
-
-    .domain-label,
-    .card-label,
-    .phase-heading {
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .domain-label {
+    .site-header p {
       margin: 0;
-      color: var(--domain-accent);
-    }
-
-    .domain-name {
-      margin: 0.35rem 0 0;
-      font-size: clamp(1.45rem, 2vw, 2.15rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-
-    .domain-copy,
-    .card-copy,
-    .summary-copy {
-      margin: 0.75rem 0 0;
+      font-size: 0.9375rem;
       color: var(--color-text-secondary);
+      max-width: 42em;
     }
 
-    .domain-stats {
+    .layout {
+      padding: 1.25rem 1.25rem 2.5rem;
+      max-width: 52rem;
+      margin: 0 auto;
+    }
+
+    /* Track switcher */
+    .domain-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-top: 1rem;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .stat-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.45rem 0.75rem;
-      border: 1px solid rgba(36, 28, 19, 0.1);
+    .tab-btn {
+      padding: 0.45rem 1rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--color-border-secondary);
+      background: var(--color-background-primary);
       color: var(--color-text-secondary);
-      font-size: 0.82rem;
-      font-weight: 700;
+      font: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     }
 
-    .card-label {
-      margin: 0;
+    .tab-btn:hover {
+      background: var(--color-background-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .tab-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: var(--color-text-primary);
+      color: var(--color-background-primary);
+      border-color: transparent;
+    }
+
+    .phase-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--color-text-tertiary);
+      margin: 1.5rem 0 0.6rem;
     }
 
-    .card-copy {
-      margin-top: 0.5rem;
+    .phase-label:first-of-type {
+      margin-top: 0;
     }
 
-    .phase-group {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .phase-heading {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      width: fit-content;
-      margin: 0;
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      background: var(--phase-tint);
-      color: var(--phase-accent);
-    }
-
-    .phase-heading::before {
-      content: "";
-      width: 0.55rem;
-      height: 0.55rem;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    .week-list {
-      display: grid;
-      gap: 0.85rem;
-    }
-
+    /* Expandable week rows */
     .week-card {
-      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      background: var(--color-background-primary);
       overflow: hidden;
+      margin-bottom: 0.625rem;
+      transition: border-color 0.15s ease;
     }
 
-    .week-heading {
-      margin: 0;
+    .week-card:hover {
+      border-color: var(--color-border-secondary);
+    }
+
+    .week-card:focus-within {
+      border-color: #185fa5;
     }
 
     .week-toggle {
-      width: 100%;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1rem 1.1rem;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.75rem 0.875rem;
       border: 0;
       background: transparent;
+      font: inherit;
       text-align: left;
       cursor: pointer;
-      transition: background-color 160ms ease;
-    }
-
-    .week-toggle:hover {
-      background: var(--color-surface-muted);
+      color: inherit;
     }
 
     .week-toggle:focus-visible {
-      outline: 3px solid rgba(24, 95, 165, 0.24);
-      outline-offset: -3px;
-    }
-
-    .week-main {
-      display: flex;
-      flex: 1;
-      gap: 0.9rem;
-      min-width: 0;
+      outline: none;
+      box-shadow: inset 0 0 0 2px #185fa5;
     }
 
     .week-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 4.8rem;
-      padding: 0.45rem 0.8rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
       border-radius: 999px;
-      background: var(--domain-tint);
-      color: var(--domain-accent);
-      font-size: 0.78rem;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .week-content {
-      display: grid;
-      gap: 0.55rem;
-      min-width: 0;
+      flex-shrink: 0;
+      min-width: 3.25rem;
+      text-align: center;
     }
 
     .week-title {
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 0.875rem;
+      font-weight: 500;
       color: var(--color-text-primary);
-    }
-
-    .week-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .week-tag,
-    .project-tag,
-    .resource-chip {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
+      flex: 1;
     }
 
     .week-tag {
-      padding: 0.35rem 0.65rem;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-muted);
+      font-size: 0.6875rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background: var(--color-background-secondary);
       color: var(--color-text-secondary);
     }
 
-    .project-tag {
-      padding: 0.35rem 0.65rem;
-      border: 1px solid rgba(139, 92, 16, 0.18);
+    .week-tag--project {
       background: #faeeda;
-      color: #8b5c10;
+      color: #ba7517;
     }
 
-    .week-chevron {
-      flex-shrink: 0;
-      margin-top: 0.15rem;
+    .chevron {
+      font-size: 0.75rem;
       color: var(--color-text-tertiary);
-      font-size: 1rem;
-      transition: transform 180ms ease;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .week-toggle[aria-expanded="true"] .week-chevron {
+    .chevron.is-open {
       transform: rotate(180deg);
     }
 
-    .week-panel {
-      padding: 0 1.1rem 1.15rem;
-      border-top: 1px solid var(--color-border);
+    .week-body {
+      display: none;
+      padding: 0 0.875rem 0.875rem;
+      border-top: 1px solid var(--color-border-tertiary);
     }
 
-    .detail-grid {
-      display: grid;
-      gap: 1rem;
-      padding-top: 1rem;
+    .week-body.is-open {
+      display: block;
     }
 
-    .detail-block {
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .detail-heading {
-      margin: 0;
-      font-size: 0.77rem;
-      font-weight: 800;
-      letter-spacing: 0.13em;
+    .section-head {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--color-text-tertiary);
+      margin: 0.75rem 0 0.35rem;
       text-transform: uppercase;
+    }
+
+    .section-head:first-child {
+      margin-top: 0.5rem;
+    }
+
+    .bullet-list {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      padding: 0.125rem 0 0.125rem 0.875rem;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .bullet-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
       color: var(--color-text-tertiary);
     }
 
-    .detail-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .detail-list li {
-      position: relative;
-      padding-left: 1rem;
-      color: var(--color-text-secondary);
-      font-size: 0.94rem;
-    }
-
-    .detail-list li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.72em;
-      width: 0.42rem;
-      height: 0.42rem;
-      border-radius: 50%;
-      background: var(--domain-accent-soft);
-      transform: translateY(-50%);
-    }
-
-    .resource-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
     .resource-chip {
-      padding: 0.4rem 0.7rem;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-muted);
+      display: inline-block;
+      font-size: 0.6875rem;
+      padding: 0.2rem 0.625rem;
+      border-radius: 6px;
+      border: 1px solid var(--color-border-secondary);
+      color: var(--color-text-secondary);
+      margin: 0.2rem 0.2rem 0 0;
+      background: var(--color-background-secondary);
+    }
+
+    .project-banner {
+      margin-top: 0.625rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--color-border-secondary);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    .outcome-box,
+    .mistakes-box {
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      padding: 0.875rem 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .outcome-box {
+      background: var(--color-background-secondary);
+    }
+
+    .outcome-box h2,
+    .mistakes-box h2 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+    }
+
+    .outcome-box p {
+      margin: 0;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .mistakes-box {
+      background: var(--color-background-primary);
+      margin-top: 0.75rem;
+    }
+
+    .prereq-box {
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      padding: 0.75rem 0.875rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: var(--color-background-secondary);
+    }
+
+    .prereq-icon {
+      font-size: 1.125rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .prereq-text {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Per-track Udemy block (injected inside the active tab panel) */
+    .course-section {
+      margin: 1.5rem 0 1.75rem;
+      padding: 1.25rem 0 0;
+      border-top: 1px solid var(--color-border-tertiary);
+    }
+
+    .course-section h2,
+    .course-section__title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+
+    .course-card__name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      line-height: 1.35;
+    }
+
+    .course-section .course-lead {
+      margin: 0 0 1rem;
+      font-size: 0.875rem;
       color: var(--color-text-secondary);
     }
 
-    .project-callout {
-      padding: 0.9rem 1rem;
-      border: 1px solid rgba(36, 28, 19, 0.08);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), var(--domain-tint));
-      color: var(--domain-accent);
-      font-weight: 700;
+    .course-card {
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      padding: 1.125rem 1.25rem;
+      background: linear-gradient(165deg, #f6f4ff 0%, var(--color-background-primary) 45%);
     }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
+    .course-meta {
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+      margin-bottom: 0.75rem;
     }
 
-    .summary-card--accent {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), var(--domain-tint));
+    .course-card p {
+      margin: 0 0 0.75rem;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
     }
 
-    .summary-title {
+    .course-benefits {
+      margin: 0 0 1rem;
+      padding-left: 1.1rem;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    .course-benefits li {
+      margin-bottom: 0.35rem;
+    }
+
+    .course-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--border-radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      background: #5624d0;
+      border: 1px solid transparent;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .course-cta:hover {
+      background: #401b9c;
+    }
+
+    .course-cta:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .course-cta:active {
+      transform: scale(0.98);
+    }
+
+    .site-footer {
+      margin-top: 2rem;
+      padding: 1.25rem 0 0;
+      border-top: 1px solid var(--color-border-tertiary);
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+    }
+
+    .site-footer p {
       margin: 0;
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
     }
 
-    .noscript-card {
-      margin-top: 1rem;
-      padding: 1rem 1.1rem;
-      border: 1px solid rgba(139, 92, 16, 0.2);
-      border-radius: var(--radius-xl);
-      background: rgba(250, 238, 218, 0.88);
-      color: #6f4814;
-    }
-
-    .noscript-card p {
-      margin: 0.35rem 0 0;
-    }
-
-    @media (max-width: 880px) {
-      .domain-intro,
-      .summary-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .page-title {
-        max-width: none;
+    @media (min-width: 40rem) {
+      .site-header,
+      .layout {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
     }
 
-    @media (max-width: 640px) {
-      .page-shell {
-        width: min(1120px, calc(100% - 1rem));
-      }
-
-      .tab-bar {
-        padding: 0.9rem 0.9rem 0;
-      }
-
-      .roadmap-view {
-        padding: 0.9rem;
-      }
-
-      .week-main {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .week-toggle {
-        padding: 0.95rem;
-      }
-
-      .week-panel {
-        padding: 0 0.95rem 1rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0ms !important;
-        animation-duration: 0ms !important;
-      }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <p class="page-kicker">Interactive Learning Paths</p>
-      <h1 class="page-title">18-week engineering roadmaps for focused, practical learning.</h1>
-      <p class="page-description">
-        Pick a track, expand each week for the details, and follow the phases in order. The page is fully static, so it works cleanly on GitHub Pages without any build step.
-      </p>
-    </header>
+  <a class="skip-link" href="#roadmap-main">Skip to roadmap</a>
 
-    <main class="roadmap-app">
-      <nav class="tab-bar" aria-label="Roadmap categories">
-        <div class="tab-list" id="tabs" role="tablist" aria-label="Roadmap categories"></div>
-      </nav>
-      <section class="roadmap-view" id="content"></section>
+  <header class="site-header">
+    <h1>Mini project roadmap</h1>
+    <p>Pick a track, expand any week for topics, tasks, and resources.</p>
+  </header>
+
+  <div class="layout">
+    <nav class="domain-tabs" id="tabs" role="tablist" aria-label="Learning tracks"></nav>
+
+    <main id="roadmap-main">
+      <h2 class="visually-hidden">Current track — week-by-week plan</h2>
+      <div id="content" role="tabpanel" aria-live="polite" aria-labelledby="tab-backend"></div>
     </main>
 
-    <noscript>
-      <section class="noscript-card" aria-label="JavaScript notice">
-        <strong>JavaScript is required for the interactive tabs and expandable weeks.</strong>
-        <p>GitHub Pages supports this setup out of the box, so the page will work normally once scripting is enabled.</p>
-      </section>
-    </noscript>
   </div>
 
-  <script>
+<script>
 const DOMAINS = {
   backend: {
     label: "Backend",
     color: "#185FA5", bg: "#E6F1FB", darkColor: "#85B7EB",
     prereq: "Python up to OOP. Understand classes, inheritance, and basic data structures. No prior web knowledge needed.",
     phases: [
-      { name: "Foundation", weeks: [1, 2, 3, 4] },
-      { name: "Core Development", weeks: [5, 6, 7, 8, 9, 10] },
-      { name: "Advanced & Real-World", weeks: [11, 12, 13, 14, 15, 16, 17, 18] }
+      { name: "Foundation", weeks: [1,2,3,4] },
+      { name: "Core Development", weeks: [5,6,7,8,9,10] },
+      { name: "Advanced & Real-World", weeks: [11,12,13,14,15,16,17,18] },
     ],
     weeks: [
-      { w: 1, title: "How the Web Works", tag: "Theory",
-        topics: ["HTTP/HTTPS protocol: request-response cycle", "DNS, IP addressing, ports", "Client-server model vs peer-to-peer", "Status codes: 2xx, 3xx, 4xx, 5xx"],
-        tasks: ["Use curl to make raw HTTP requests", "Inspect network tab in browser DevTools", "Trace a URL from browser to server on paper"],
+      { w:1, title:"How the Web Works", tag:"Theory",
+        topics:["HTTP/HTTPS protocol: request-response cycle","DNS, IP addressing, ports","Client-server model vs peer-to-peer","Status codes: 2xx, 3xx, 4xx, 5xx"],
+        tasks:["Use curl to make raw HTTP requests","Inspect network tab in browser DevTools","Trace a URL from browser to server on paper"],
         project: null,
-        resources: ["MDN: HTTP overview", "CS50 Web (weeks 0-1)", "'How DNS Works' — dnsimple.com comic"] },
-      { w: 2, title: "Python for Web: Sockets & Servers", tag: "Theory + Code",
-        topics: ["TCP/UDP basics", "Python socket module", "What a web framework really does under the hood", "WSGI and how Python talks to the web"],
-        tasks: ["Build a raw TCP echo server in Python", "Write a minimal HTTP response by hand over a socket", "Understand why frameworks exist"],
+        resources:["MDN: HTTP overview","CS50 Web (weeks 0-1)","'How DNS Works' — dnsimple.com comic"] },
+      { w:2, title:"Python for Web: Sockets & Servers", tag:"Theory + Code",
+        topics:["TCP/UDP basics","Python socket module","What a web framework really does under the hood","WSGI and how Python talks to the web"],
+        tasks:["Build a raw TCP echo server in Python","Write a minimal HTTP response by hand over a socket","Understand why frameworks exist"],
         project: null,
-        resources: ["Python socket docs", "Beej's Guide to Network Programming (concepts)", "Real Python: sockets tutorial"] },
-      { w: 3, title: "Flask Fundamentals", tag: "Framework",
-        topics: ["Routing and URL patterns", "Request/response objects", "Jinja2 templating", "Static files", "Environment variables"],
-        tasks: ["Build a personal homepage with Flask", "Serve dynamic HTML with data from Python dicts", "Use .env for config"],
+        resources:["Python socket docs","Beej's Guide to Network Programming (concepts)","Real Python: sockets tutorial"] },
+      { w:3, title:"Flask Fundamentals", tag:"Framework",
+        topics:["Routing and URL patterns","Request/response objects","Jinja2 templating","Static files","Environment variables"],
+        tasks:["Build a personal homepage with Flask","Serve dynamic HTML with data from Python dicts","Use .env for config"],
         project: null,
-        resources: ["Flask official docs", "Miguel Grinberg's Flask Mega-Tutorial (ch.1-4)"] },
-      { w: 4, title: "REST API Design", tag: "Architecture",
-        topics: ["What REST is and why it matters", "Resources, verbs, URIs", "Request/response with JSON", "Idempotency", "Versioning APIs"],
-        tasks: ["Build a REST API for a simple resource (e.g. books)", "Test with Postman or HTTPie", "Document your API endpoints"],
+        resources:["Flask official docs","Miguel Grinberg's Flask Mega-Tutorial (ch.1-4)"] },
+      { w:4, title:"REST API Design", tag:"Architecture",
+        topics:["What REST is and why it matters","Resources, verbs, URIs","Request/response with JSON","Idempotency","Versioning APIs"],
+        tasks:["Build a REST API for a simple resource (e.g. books)","Test with Postman or HTTPie","Document your API endpoints"],
         project: "Mini Project 1 — Build a fully functional REST API for a To-Do list (CRUD operations, JSON responses, proper status codes).",
-        resources: ["RESTful API Design best practices (restfulapi.net)", "Flask-RESTful docs", "HTTP API Design Guide (github)"] },
-      { w: 5, title: "Relational Databases & SQL", tag: "Data",
-        topics: ["Relational model: tables, rows, columns, keys", "SQL: SELECT, INSERT, UPDATE, DELETE", "Joins: INNER, LEFT, RIGHT", "Indexes and why they matter", "ACID properties"],
-        tasks: ["Design a schema for a library system", "Write 20+ SQL queries from simple to complex", "Explain what an index does to a friend"],
+        resources:["RESTful API Design best practices (restfulapi.net)","Flask-RESTful docs","HTTP API Design Guide (github)"] },
+      { w:5, title:"Relational Databases & SQL", tag:"Data",
+        topics:["Relational model: tables, rows, columns, keys","SQL: SELECT, INSERT, UPDATE, DELETE","Joins: INNER, LEFT, RIGHT","Indexes and why they matter","ACID properties"],
+        tasks:["Design a schema for a library system","Write 20+ SQL queries from simple to complex","Explain what an index does to a friend"],
         project: null,
-        resources: ["SQLZoo (interactive)", "CS145 Stanford (first 3 lectures)", "'Use the Index, Luke' (use-the-index-luke.com)"] },
-      { w: 6, title: "SQLAlchemy & ORMs", tag: "Code",
-        topics: ["ORM pattern: why and when", "SQLAlchemy Core vs ORM", "Models, sessions, transactions", "Migrations with Alembic", "N+1 query problem"],
-        tasks: ["Migrate your To-Do API to use PostgreSQL via SQLAlchemy", "Add Alembic migration scripts", "Identify and fix an N+1 query"],
+        resources:["SQLZoo (interactive)","CS145 Stanford (first 3 lectures)","'Use the Index, Luke' (use-the-index-luke.com)"] },
+      { w:6, title:"SQLAlchemy & ORMs", tag:"Code",
+        topics:["ORM pattern: why and when","SQLAlchemy Core vs ORM","Models, sessions, transactions","Migrations with Alembic","N+1 query problem"],
+        tasks:["Migrate your To-Do API to use PostgreSQL via SQLAlchemy","Add Alembic migration scripts","Identify and fix an N+1 query"],
         project: null,
-        resources: ["SQLAlchemy official tutorial", "Alembic docs", "Armin Ronacher's blog on SQLAlchemy"] },
-      { w: 7, title: "Authentication & Authorization", tag: "Security",
-        topics: ["Session-based vs token-based auth", "JWT: structure, signing, validation", "Password hashing: bcrypt, Argon2", "OAuth 2.0 flow overview", "Role-based access control"],
-        tasks: ["Add JWT login/logout to your API", "Hash passwords with bcrypt", "Protect routes with a decorator", "Never store plaintext passwords — understand why"],
+        resources:["SQLAlchemy official tutorial","Alembic docs","Armin Ronacher's blog on SQLAlchemy"] },
+      { w:7, title:"Authentication & Authorization", tag:"Security",
+        topics:["Session-based vs token-based auth","JWT: structure, signing, validation","Password hashing: bcrypt, Argon2","OAuth 2.0 flow overview","Role-based access control"],
+        tasks:["Add JWT login/logout to your API","Hash passwords with bcrypt","Protect routes with a decorator","Never store plaintext passwords — understand why"],
         project: null,
-        resources: ["jwt.io introduction", "OWASP auth cheat sheet", "Flask-JWT-Extended docs"] },
-      { w: 8, title: "Asynchronous Python & Background Jobs", tag: "Concurrency",
-        topics: ["Sync vs async: blocking IO", "asyncio, async/await in Python", "When to use threads vs async", "Task queues: Celery + Redis", "Use cases: email, exports, scrapers"],
-        tasks: ["Rewrite a Flask endpoint using async", "Add a Celery task for sending welcome emails", "Profile sync vs async on IO-heavy work"],
+        resources:["jwt.io introduction","OWASP auth cheat sheet","Flask-JWT-Extended docs"] },
+      { w:8, title:"Asynchronous Python & Background Jobs", tag:"Concurrency",
+        topics:["Sync vs async: blocking IO","asyncio, async/await in Python","When to use threads vs async","Task queues: Celery + Redis","Use cases: email, exports, scrapers"],
+        tasks:["Rewrite a Flask endpoint using async","Add a Celery task for sending welcome emails","Profile sync vs async on IO-heavy work"],
         project: null,
-        resources: ["Python asyncio docs", "Celery docs getting started", "ArjanCodes: async Python (YouTube)"] },
-      { w: 9, title: "Caching & Performance", tag: "Optimization",
-        topics: ["Why caching matters (latency, DB load)", "Redis: data types and use cases", "Cache-aside, write-through patterns", "HTTP caching headers: ETag, Cache-Control", "Rate limiting"],
-        tasks: ["Add Redis caching to your most-hit endpoint", "Implement rate limiting on your API", "Benchmark response times before/after"],
+        resources:["Python asyncio docs","Celery docs getting started","ArjanCodes: async Python (YouTube)"] },
+      { w:9, title:"Caching & Performance", tag:"Optimization",
+        topics:["Why caching matters (latency, DB load)","Redis: data types and use cases","Cache-aside, write-through patterns","HTTP caching headers: ETag, Cache-Control","Rate limiting"],
+        tasks:["Add Redis caching to your most-hit endpoint","Implement rate limiting on your API","Benchmark response times before/after"],
         project: null,
-        resources: ["Redis University (free)", "AWS caching best practices blog", "MDN: HTTP caching"] },
-      { w: 10, title: "Testing & Code Quality", tag: "Engineering",
-        topics: ["Unit vs integration vs end-to-end tests", "pytest fundamentals", "Mocking external services", "Test coverage — what it means and its limits", "Linting and formatting: ruff, black"],
-        tasks: ["Write tests for every endpoint in your API", "Mock the database in unit tests", "Set up a pre-commit hook with ruff"],
+        resources:["Redis University (free)","AWS caching best practices blog","MDN: HTTP caching"] },
+      { w:10, title:"Testing & Code Quality", tag:"Engineering",
+        topics:["Unit vs integration vs end-to-end tests","pytest fundamentals","Mocking external services","Test coverage — what it means and its limits","Linting and formatting: ruff, black"],
+        tasks:["Write tests for every endpoint in your API","Mock the database in unit tests","Set up a pre-commit hook with ruff"],
         project: "Major Project 1 — Build a complete Blog API with user registration, JWT auth, CRUD posts, tags, Redis caching, and full test coverage (≥80%).",
-        resources: ["pytest docs", "Test-Driven Development with Python (Percival)", "Real Python: pytest guide"] },
-      { w: 11, title: "Docker & Containerization", tag: "DevOps",
-        topics: ["What containers solve vs VMs", "Dockerfile best practices", "docker-compose for local dev", "Volumes and environment injection", "Multi-stage builds"],
-        tasks: ["Dockerize your Blog API", "Write a docker-compose with app + postgres + redis", "Build and run with one command"],
+        resources:["pytest docs","Test-Driven Development with Python (Percival)","Real Python: pytest guide"] },
+      { w:11, title:"Docker & Containerization", tag:"DevOps",
+        topics:["What containers solve vs VMs","Dockerfile best practices","docker-compose for local dev","Volumes and environment injection","Multi-stage builds"],
+        tasks:["Dockerize your Blog API","Write a docker-compose with app + postgres + redis","Build and run with one command"],
         project: null,
-        resources: ["Docker official docs getting started", "'Docker Deep Dive' by Nigel Poulton (book)", "TechWorld with Nana: Docker (YouTube)"] },
-      { w: 12, title: "CI/CD Fundamentals", tag: "DevOps",
-        topics: ["What CI/CD solves", "GitHub Actions basics", "Pipeline: lint → test → build → deploy", "Secrets management", "Deploy to a VPS (DigitalOcean / Railway)"],
-        tasks: ["Set up GitHub Actions for your Blog API", "Auto-deploy on main branch merge", "Add badge to README"],
+        resources:["Docker official docs getting started","'Docker Deep Dive' by Nigel Poulton (book)","TechWorld with Nana: Docker (YouTube)"] },
+      { w:12, title:"CI/CD Fundamentals", tag:"DevOps",
+        topics:["What CI/CD solves","GitHub Actions basics","Pipeline: lint → test → build → deploy","Secrets management","Deploy to a VPS (DigitalOcean / Railway)"],
+        tasks:["Set up GitHub Actions for your Blog API","Auto-deploy on main branch merge","Add badge to README"],
         project: null,
-        resources: ["GitHub Actions docs", "Railway.app docs", "DevOps with Docker and GitHub Actions (YouTube)"] },
-      { w: 13, title: "WebSockets & Real-Time", tag: "Advanced",
-        topics: ["Long polling vs WebSockets vs SSE", "WebSocket protocol internals", "Flask-SocketIO / FastAPI WebSockets", "Broadcasting and rooms", "Use cases: chat, live dashboards"],
-        tasks: ["Build a real-time chat room", "Broadcast messages to all connected clients", "Handle disconnects gracefully"],
+        resources:["GitHub Actions docs","Railway.app docs","DevOps with Docker and GitHub Actions (YouTube)"] },
+      { w:13, title:"WebSockets & Real-Time", tag:"Advanced",
+        topics:["Long polling vs WebSockets vs SSE","WebSocket protocol internals","Flask-SocketIO / FastAPI WebSockets","Broadcasting and rooms","Use cases: chat, live dashboards"],
+        tasks:["Build a real-time chat room","Broadcast messages to all connected clients","Handle disconnects gracefully"],
         project: null,
-        resources: ["Flask-SocketIO docs", "MDN: WebSocket API", "Socket.io conceptual guide"] },
-      { w: 14, title: "FastAPI & Modern Python APIs", tag: "Framework",
-        topics: ["Why FastAPI over Flask: type hints, async, OpenAPI", "Pydantic for validation", "Dependency injection pattern", "Auto-generated API docs (Swagger)", "Background tasks"],
-        tasks: ["Rebuild your Blog API in FastAPI", "Compare code quality and speed", "Add automatic validation for all request bodies"],
+        resources:["Flask-SocketIO docs","MDN: WebSocket API","Socket.io conceptual guide"] },
+      { w:14, title:"FastAPI & Modern Python APIs", tag:"Framework",
+        topics:["Why FastAPI over Flask: type hints, async, OpenAPI","Pydantic for validation","Dependency injection pattern","Auto-generated API docs (Swagger)","Background tasks"],
+        tasks:["Rebuild your Blog API in FastAPI","Compare code quality and speed","Add automatic validation for all request bodies"],
         project: null,
-        resources: ["FastAPI official tutorial", "ArjanCodes: FastAPI series (YouTube)"] },
-      { w: 15, title: "System Design for Backends", tag: "Architecture",
-        topics: ["Scalability: vertical vs horizontal", "Load balancing", "Database read replicas", "Message queues: RabbitMQ / Kafka intro", "Microservices vs monolith trade-offs"],
-        tasks: ["Draw architecture diagrams for 3 real-world apps", "Identify where your Blog API would break under load", "Design a scaled version on paper"],
+        resources:["FastAPI official tutorial","ArjanCodes: FastAPI series (YouTube)"] },
+      { w:15, title:"System Design for Backends", tag:"Architecture",
+        topics:["Scalability: vertical vs horizontal","Load balancing","Database read replicas","Message queues: RabbitMQ / Kafka intro","Microservices vs monolith trade-offs"],
+        tasks:["Draw architecture diagrams for 3 real-world apps","Identify where your Blog API would break under load","Design a scaled version on paper"],
         project: null,
-        resources: ["System Design Primer (GitHub)", "Designing Data-Intensive Applications ch.1-3 (Kleppmann)", "ByteByteGo YouTube channel"] },
-      { w: 16, title: "Security Deep Dive", tag: "Security",
-        topics: ["OWASP Top 10", "SQL injection, XSS, CSRF — hands-on", "Input validation and sanitization", "HTTPS: TLS handshake internals", "Secrets and key rotation"],
-        tasks: ["Attack your own API (SQLi, XSS attempts)", "Fix every vulnerability you find", "Add security headers to responses"],
+        resources:["System Design Primer (GitHub)","Designing Data-Intensive Applications ch.1-3 (Kleppmann)","ByteByteGo YouTube channel"] },
+      { w:16, title:"Security Deep Dive", tag:"Security",
+        topics:["OWASP Top 10","SQL injection, XSS, CSRF — hands-on","Input validation and sanitization","HTTPS: TLS handshake internals","Secrets and key rotation"],
+        tasks:["Attack your own API (SQLi, XSS attempts)","Fix every vulnerability you find","Add security headers to responses"],
         project: null,
-        resources: ["OWASP Top 10 (owasp.org)", "HackTheBox intro labs", "Web Application Hackers Handbook (conceptual read)"] },
-      { w: 17, title: "Monitoring & Observability", tag: "Operations",
-        topics: ["Logging: structured logs, log levels", "Metrics: Prometheus + Grafana intro", "Distributed tracing: OpenTelemetry", "Alerting and on-call basics", "Error tracking: Sentry"],
-        tasks: ["Add structured JSON logging to your API", "Set up Sentry for error tracking", "Create a simple Grafana dashboard"],
+        resources:["OWASP Top 10 (owasp.org)","HackTheBox intro labs","Web Application Hackers Handbook (conceptual read)"] },
+      { w:17, title:"Monitoring & Observability", tag:"Operations",
+        topics:["Logging: structured logs, log levels","Metrics: Prometheus + Grafana intro","Distributed tracing: OpenTelemetry","Alerting and on-call basics","Error tracking: Sentry"],
+        tasks:["Add structured JSON logging to your API","Set up Sentry for error tracking","Create a simple Grafana dashboard"],
         project: null,
-        resources: ["OpenTelemetry docs", "Prometheus getting started", "Sentry Python SDK docs"] },
-      { w: 18, title: "Capstone Build & Polish", tag: "Project",
-        topics: ["Review all concepts", "Architect a production-grade service", "Documentation and README standards", "Portfolio presentation"],
-        tasks: ["Final audit of your codebase", "Write comprehensive API documentation", "Deploy publicly and share the URL"],
+        resources:["OpenTelemetry docs","Prometheus getting started","Sentry Python SDK docs"] },
+      { w:18, title:"Capstone Build & Polish", tag:"Project",
+        topics:["Review all concepts","Architect a production-grade service","Documentation and README standards","Portfolio presentation"],
+        tasks:["Final audit of your codebase","Write comprehensive API documentation","Deploy publicly and share the URL"],
         project: "Final Project — Build a production-grade URL Shortener + Analytics platform: FastAPI, PostgreSQL, Redis caching, JWT auth, Celery for async click processing, Docker, CI/CD, real-time click stats via WebSockets, Sentry monitoring. Publicly deployed.",
-        resources: ["Your own codebase", "'The Pragmatic Programmer' (Hunt & Thomas)"] }
+        resources:["Your own codebase","'The Pragmatic Programmer' (Hunt & Thomas)"] },
     ],
     outcome: "You can build, deploy, and maintain production-grade REST APIs. You understand auth, databases, caching, async, testing, Docker, CI/CD, and basic security. Portfolio includes a real publicly-deployed backend service.",
-    mistakes: ["Skipping HTTP fundamentals and jumping straight to frameworks", "Never reading error messages fully — read the whole traceback", "Storing plaintext passwords or committing secrets to git", "Writing zero tests and calling it done", "Confusing async with multiprocessing/threads", "Never deploying — local-only projects don't teach you the real problems"]
+    mistakes: ["Skipping HTTP fundamentals and jumping straight to frameworks","Never reading error messages fully — read the whole traceback","Storing plaintext passwords or committing secrets to git","Writing zero tests and calling it done","Confusing async with multiprocessing/threads","Never deploying — local-only projects don't teach you the real problems"]
   },
 
   networking: {
@@ -706,104 +578,104 @@ const DOMAINS = {
     color: "#3B6D11", bg: "#EAF3DE", darkColor: "#97C459",
     prereq: "Python to OOP level. Basic command line comfort. Understanding of binary and hexadecimal is helpful but taught in Week 1.",
     phases: [
-      { name: "Ground Up", weeks: [1, 2, 3, 4, 5] },
-      { name: "Protocol Deep Dives", weeks: [6, 7, 8, 9, 10, 11] },
-      { name: "Applied & Advanced", weeks: [12, 13, 14, 15, 16, 17, 18] }
+      { name: "Ground Up", weeks: [1,2,3,4,5] },
+      { name: "Protocol Deep Dives", weeks: [6,7,8,9,10,11] },
+      { name: "Applied & Advanced", weeks: [12,13,14,15,16,17,18] },
     ],
     weeks: [
-      { w: 1, title: "Binary, Hex & Number Systems", tag: "Math",
-        topics: ["Why computers use binary", "Binary ↔ decimal ↔ hex conversion", "Bitwise operations: AND, OR, XOR, shifts", "Representing text, color, data in bits", "Units: bit, byte, KB, MB, GB"],
-        tasks: ["Convert 30 numbers between all three bases by hand", "Write Python functions for each conversion", "Understand why MAC addresses are in hex"],
+      { w:1, title:"Binary, Hex & Number Systems", tag:"Math",
+        topics:["Why computers use binary","Binary ↔ decimal ↔ hex conversion","Bitwise operations: AND, OR, XOR, shifts","Representing text, color, data in bits","Units: bit, byte, KB, MB, GB"],
+        tasks:["Convert 30 numbers between all three bases by hand","Write Python functions for each conversion","Understand why MAC addresses are in hex"],
         project: null,
-        resources: ["Ben Eater: Binary/hex primer (YouTube)", "CS50 Week 0 (Harvard)"] },
-      { w: 2, title: "What is a Network? Topologies & Media", tag: "Concepts",
-        topics: ["LANs, WANs, MANs, the internet", "Physical topologies: bus, star, ring, mesh", "Transmission media: copper, fiber, wireless", "Bandwidth vs throughput vs latency", "Packet switching vs circuit switching"],
-        tasks: ["Draw the network topology of your home", "Ping multiple servers and record RTT", "Explain packet switching to a non-CS friend"],
+        resources:["Ben Eater: Binary/hex primer (YouTube)","CS50 Week 0 (Harvard)"] },
+      { w:2, title:"What is a Network? Topologies & Media", tag:"Concepts",
+        topics:["LANs, WANs, MANs, the internet","Physical topologies: bus, star, ring, mesh","Transmission media: copper, fiber, wireless","Bandwidth vs throughput vs latency","Packet switching vs circuit switching"],
+        tasks:["Draw the network topology of your home","Ping multiple servers and record RTT","Explain packet switching to a non-CS friend"],
         project: null,
-        resources: ["Tanenbaum 'Computer Networks' ch.1", "Professor Messer CompTIA Network+ (free YouTube)", "'How the Internet Works' — Stanford (Coursera)"] },
-      { w: 3, title: "The OSI & TCP/IP Models", tag: "Architecture",
-        topics: ["OSI 7 layers — what each does and why", "TCP/IP 4-layer model", "Encapsulation: data → segment → packet → frame → bits", "Where common protocols live", "How packets travel through layers"],
-        tasks: ["Map 10 protocols to their OSI layers", "Trace a web request through every layer on paper", "Wireshark: capture and identify layers in a packet"],
+        resources:["Tanenbaum 'Computer Networks' ch.1","Professor Messer CompTIA Network+ (free YouTube)","'How the Internet Works' — Stanford (Coursera)"] },
+      { w:3, title:"The OSI & TCP/IP Models", tag:"Architecture",
+        topics:["OSI 7 layers — what each does and why","TCP/IP 4-layer model","Encapsulation: data → segment → packet → frame → bits","Where common protocols live","How packets travel through layers"],
+        tasks:["Map 10 protocols to their OSI layers","Trace a web request through every layer on paper","Wireshark: capture and identify layers in a packet"],
         project: null,
-        resources: ["Tanenbaum ch.1-2", "Julia Evans: 'How TCP works' zine", "Wireshark getting started guide"] },
-      { w: 4, title: "Layer 2 — Data Link & Ethernet", tag: "Protocol",
-        topics: ["MAC addresses: structure and assignment", "Ethernet frames: header, payload, FCS", "Switches vs hubs", "ARP: MAC ↔ IP resolution", "VLANs introduction", "Spanning Tree Protocol"],
-        tasks: ["Use arp -a to inspect your ARP table", "Capture ARP traffic in Wireshark", "Simulate switch behavior in Cisco Packet Tracer (free)"],
+        resources:["Tanenbaum ch.1-2","Julia Evans: 'How TCP works' zine","Wireshark getting started guide"] },
+      { w:4, title:"Layer 2 — Data Link & Ethernet", tag:"Protocol",
+        topics:["MAC addresses: structure and assignment","Ethernet frames: header, payload, FCS","Switches vs hubs","ARP: MAC ↔ IP resolution","VLANs introduction","Spanning Tree Protocol"],
+        tasks:["Use arp -a to inspect your ARP table","Capture ARP traffic in Wireshark","Simulate switch behavior in Cisco Packet Tracer (free)"],
         project: null,
-        resources: ["Cisco Packet Tracer labs (netacad.com)", "NetworkChuck: ARP explained (YouTube)"] },
-      { w: 5, title: "Layer 3 — IP Addressing & Routing", tag: "Protocol",
-        topics: ["IPv4: structure, classes (conceptual), CIDR", "Subnetting: calculating network/host ranges", "IPv6: format, why it exists", "Routing: static vs dynamic", "Routing algorithms: RIP, OSPF, BGP concepts", "NAT and private address spaces"],
-        tasks: ["Subnet a /24 into 8 subnets by hand", "Configure static routes in Packet Tracer", "Trace the route to google.com with traceroute"],
+        resources:["Cisco Packet Tracer labs (netacad.com)","NetworkChuck: ARP explained (YouTube)"] },
+      { w:5, title:"Layer 3 — IP Addressing & Routing", tag:"Protocol",
+        topics:["IPv4: structure, classes (conceptual), CIDR","Subnetting: calculating network/host ranges","IPv6: format, why it exists","Routing: static vs dynamic","Routing algorithms: RIP, OSPF, BGP concepts","NAT and private address spaces"],
+        tasks:["Subnet a /24 into 8 subnets by hand","Configure static routes in Packet Tracer","Trace the route to google.com with traceroute"],
         project: "Mini Project 1 — Design and document a complete IP addressing scheme for a fictional company with 5 departments. Justify every subnet decision.",
-        resources: ["subnettingpractice.com", "Professor Messer: subnetting", "Tanenbaum ch.5"] },
-      { w: 6, title: "Layer 4 — TCP in Depth", tag: "Protocol",
-        topics: ["TCP segment structure", "Three-way handshake & four-way teardown", "Sequence numbers, ACKs, retransmission", "Flow control: sliding window", "Congestion control: slow start, AIMD", "TCP vs UDP: when to use each"],
-        tasks: ["Capture a TCP handshake in Wireshark and label every field", "Write a TCP file transfer client-server in Python", "Observe what happens when you drop packets (tc netem tool)"],
+        resources:["subnettingpractice.com","Professor Messer: subnetting","Tanenbaum ch.5"] },
+      { w:6, title:"Layer 4 — TCP in Depth", tag:"Protocol",
+        topics:["TCP segment structure","Three-way handshake & four-way teardown","Sequence numbers, ACKs, retransmission","Flow control: sliding window","Congestion control: slow start, AIMD","TCP vs UDP: when to use each"],
+        tasks:["Capture a TCP handshake in Wireshark and label every field","Write a TCP file transfer client-server in Python","Observe what happens when you drop packets (tc netem tool)"],
         project: null,
-        resources: ["RFC 793 (skim the core sections)", "Julia Evans 'Let's code a TCP stack' blog", "Wireshark TCP analysis labs"] },
-      { w: 7, title: "UDP & Real-Time Protocols", tag: "Protocol",
-        topics: ["UDP datagram structure", "Why UDP for streaming/gaming/DNS", "QUIC: HTTP/3's transport layer", "RTP/RTCP for media", "Building reliability on top of UDP"],
-        tasks: ["Build a UDP-based chat app in Python", "Measure jitter and packet loss with iperf3", "Compare UDP vs TCP latency in a local experiment"],
+        resources:["RFC 793 (skim the core sections)","Julia Evans 'Let's code a TCP stack' blog","Wireshark TCP analysis labs"] },
+      { w:7, title:"UDP & Real-Time Protocols", tag:"Protocol",
+        topics:["UDP datagram structure","Why UDP for streaming/gaming/DNS","QUIC: HTTP/3's transport layer","RTP/RTCP for media","Building reliability on top of UDP"],
+        tasks:["Build a UDP-based chat app in Python","Measure jitter and packet loss with iperf3","Compare UDP vs TCP latency in a local experiment"],
         project: null,
-        resources: ["RFC 768 (UDP spec)", "QUIC explainer — cloudflare blog", "iperf3 documentation"] },
-      { w: 8, title: "DNS — The Phone Book of the Internet", tag: "Application Layer",
-        topics: ["DNS hierarchy: root → TLD → authoritative", "Recursive vs iterative resolution", "Record types: A, AAAA, CNAME, MX, TXT, NS, PTR", "TTL and caching", "DNS security: DNSSEC, DNS-over-HTTPS", "Split-horizon DNS"],
-        tasks: ["Use dig to trace a DNS resolution step by step", "Set up a local DNS server with BIND or dnsmasq", "Capture DNS traffic in Wireshark"],
+        resources:["RFC 768 (UDP spec)","QUIC explainer — cloudflare blog","iperf3 documentation"] },
+      { w:8, title:"DNS — The Phone Book of the Internet", tag:"Application Layer",
+        topics:["DNS hierarchy: root → TLD → authoritative","Recursive vs iterative resolution","Record types: A, AAAA, CNAME, MX, TXT, NS, PTR","TTL and caching","DNS security: DNSSEC, DNS-over-HTTPS","Split-horizon DNS"],
+        tasks:["Use dig to trace a DNS resolution step by step","Set up a local DNS server with BIND or dnsmasq","Capture DNS traffic in Wireshark"],
         project: null,
-        resources: ["Julia Evans: 'Implement DNS in a weekend' blog", "'DNS and BIND' (Albitz & Liu) — first 3 chapters", "Cloudflare DNS learning center"] },
-      { w: 9, title: "HTTP/1.1, HTTP/2, HTTP/3", tag: "Application Layer",
-        topics: ["HTTP/1.1: persistent connections, pipelining", "HTTP/2: multiplexing, header compression, server push", "HTTP/3: QUIC-based, 0-RTT", "TLS 1.3 handshake", "Certificate chains, CAs, SNI", "HSTS, CORS, CSP headers"],
-        tasks: ["Compare HTTP/1.1 vs HTTP/2 load time with curl", "Capture TLS handshake in Wireshark (decrypt with session keys)", "Set up an nginx server with HTTP/2 enabled"],
+        resources:["Julia Evans: 'Implement DNS in a weekend' blog","'DNS and BIND' (Albitz & Liu) — first 3 chapters","Cloudflare DNS learning center"] },
+      { w:9, title:"HTTP/1.1, HTTP/2, HTTP/3", tag:"Application Layer",
+        topics:["HTTP/1.1: persistent connections, pipelining","HTTP/2: multiplexing, header compression, server push","HTTP/3: QUIC-based, 0-RTT","TLS 1.3 handshake","Certificate chains, CAs, SNI","HSTS, CORS, CSP headers"],
+        tasks:["Compare HTTP/1.1 vs HTTP/2 load time with curl","Capture TLS handshake in Wireshark (decrypt with session keys)","Set up an nginx server with HTTP/2 enabled"],
         project: null,
-        resources: ["'High Performance Browser Networking' — Ilya Grigorik (free online)", "MDN: HTTP documentation", "TLS 1.3 explainer — cloudflare blog"] },
-      { w: 10, title: "Network Security Fundamentals", tag: "Security",
-        topics: ["Threat landscape: MITM, spoofing, DDoS, sniffing", "Firewalls: stateless vs stateful, rules", "IDS vs IPS", "VPNs: IPsec, WireGuard, OpenVPN", "SSH: key exchange, agent forwarding", "Zero Trust model"],
-        tasks: ["Set up WireGuard VPN between two cloud VMs", "Write iptables rules to block/allow specific traffic", "Perform an ARP spoofing demo on a local VM (ethically)"],
+        resources:["'High Performance Browser Networking' — Ilya Grigorik (free online)","MDN: HTTP documentation","TLS 1.3 explainer — cloudflare blog"] },
+      { w:10, title:"Network Security Fundamentals", tag:"Security",
+        topics:["Threat landscape: MITM, spoofing, DDoS, sniffing","Firewalls: stateless vs stateful, rules","IDS vs IPS","VPNs: IPsec, WireGuard, OpenVPN","SSH: key exchange, agent forwarding","Zero Trust model"],
+        tasks:["Set up WireGuard VPN between two cloud VMs","Write iptables rules to block/allow specific traffic","Perform an ARP spoofing demo on a local VM (ethically)"],
         project: "Mini Project 2 — Configure a secure network for a web server: firewall rules, SSH hardening, fail2ban, and a WireGuard tunnel for admin access.",
-        resources: ["'Network Security Essentials' Stallings ch.1-3", "Hacking: The Art of Exploitation (concepts)", "WireGuard official docs"] },
-      { w: 11, title: "Wireless & Modern Network Technologies", tag: "Modern",
-        topics: ["WiFi 802.11 standards: a/b/g/n/ac/ax", "Association process, CSMA/CA", "SSID, channels, interference", "Cellular: 4G LTE, 5G architecture", "SD-WAN concepts", "Network virtualization: VXLAN, overlay networks"],
-        tasks: ["Analyze WiFi signal quality with NetSpot or similar", "Configure a guest WiFi with VLAN isolation", "Research how 5G slicing works"],
+        resources:["'Network Security Essentials' Stallings ch.1-3","Hacking: The Art of Exploitation (concepts)","WireGuard official docs"] },
+      { w:11, title:"Wireless & Modern Network Technologies", tag:"Modern",
+        topics:["WiFi 802.11 standards: a/b/g/n/ac/ax","Association process, CSMA/CA","SSID, channels, interference","Cellular: 4G LTE, 5G architecture","SD-WAN concepts","Network virtualization: VXLAN, overlay networks"],
+        tasks:["Analyze WiFi signal quality with NetSpot or similar","Configure a guest WiFi with VLAN isolation","Research how 5G slicing works"],
         project: null,
-        resources: ["IEEE 802.11 overview (simplified)", "NetworkChuck: WiFi fundamentals", "5G explainer — Ericsson Technology Review"] },
-      { w: 12, title: "Routing Protocols Deep Dive", tag: "Advanced",
-        topics: ["OSPF: link-state, Dijkstra, areas", "BGP: path vector, AS numbers, route policies", "Route redistribution", "ECMP and load balancing", "Software-defined networking: OpenFlow", "FRRouting (open source router suite)"],
-        tasks: ["Set up OSPF between 3 routers in GNS3 or Packet Tracer", "Trace a BGP announcement using BGPlay", "Run FRRouting in Docker and configure basic OSPF"],
+        resources:["IEEE 802.11 overview (simplified)","NetworkChuck: WiFi fundamentals","5G explainer — Ericsson Technology Review"] },
+      { w:12, title:"Routing Protocols Deep Dive", tag:"Advanced",
+        topics:["OSPF: link-state, Dijkstra, areas","BGP: path vector, AS numbers, route policies","Route redistribution","ECMP and load balancing","Software-defined networking: OpenFlow","FRRouting (open source router suite)"],
+        tasks:["Set up OSPF between 3 routers in GNS3 or Packet Tracer","Trace a BGP announcement using BGPlay","Run FRRouting in Docker and configure basic OSPF"],
         project: null,
-        resources: ["'Routing TCP/IP Vol.1' — Doyle (first 3 chapters)", "BGPlay at bgp.potaroo.net", "GNS3 labs for OSPF"] },
-      { w: 13, title: "Network Programming in Python", tag: "Code",
-        topics: ["Raw sockets: crafting packets from scratch", "Scapy: packet manipulation library", "Building a port scanner", "PCAP file analysis", "Implementing a simple protocol"],
-        tasks: ["Build a network port scanner (nmap-lite) in Python", "Use Scapy to forge a custom ICMP packet", "Parse a .pcap file and extract all HTTP hosts"],
+        resources:["'Routing TCP/IP Vol.1' — Doyle (first 3 chapters)","BGPlay at bgp.potaroo.net","GNS3 labs for OSPF"] },
+      { w:13, title:"Network Programming in Python", tag:"Code",
+        topics:["Raw sockets: crafting packets from scratch","Scapy: packet manipulation library","Building a port scanner","PCAP file analysis","Implementing a simple protocol"],
+        tasks:["Build a network port scanner (nmap-lite) in Python","Use Scapy to forge a custom ICMP packet","Parse a .pcap file and extract all HTTP hosts"],
         project: null,
-        resources: ["Scapy documentation", "'Black Hat Python' ch.1-3 (Sanders)", "Wireshark Developer docs"] },
-      { w: 14, title: "Load Balancing & CDNs", tag: "Infrastructure",
-        topics: ["Load balancing algorithms: round-robin, least-conn, IP hash", "Layer 4 vs layer 7 load balancing", "Health checks and failover", "CDN: edge nodes, Anycast, cache invalidation", "GeoDNS and latency-based routing"],
-        tasks: ["Configure nginx as a layer 7 load balancer", "Observe CDN behavior with curl and cache headers", "Design a CDN strategy for a media app"],
+        resources:["Scapy documentation","'Black Hat Python' ch.1-3 (Sanders)","Wireshark Developer docs"] },
+      { w:14, title:"Load Balancing & CDNs", tag:"Infrastructure",
+        topics:["Load balancing algorithms: round-robin, least-conn, IP hash","Layer 4 vs layer 7 load balancing","Health checks and failover","CDN: edge nodes, Anycast, cache invalidation","GeoDNS and latency-based routing"],
+        tasks:["Configure nginx as a layer 7 load balancer","Observe CDN behavior with curl and cache headers","Design a CDN strategy for a media app"],
         project: null,
-        resources: ["nginx load balancing guide", "Cloudflare: how CDNs work", "'Web Scalability for Startup Engineers' ch.3"] },
-      { w: 15, title: "Network Monitoring & Troubleshooting", tag: "Operations",
-        topics: ["SNMP: polling, traps, MIBs", "NetFlow and traffic analysis", "Syslog and centralized logging", "Smokeping for latency monitoring", "Troubleshooting methodology: OSI bottom-up"],
-        tasks: ["Set up Prometheus + node_exporter for network metrics", "Simulate network issues and diagnose with ping, traceroute, ss", "Build a simple network dashboard in Grafana"],
+        resources:["nginx load balancing guide","Cloudflare: how CDNs work","'Web Scalability for Startup Engineers' ch.3"] },
+      { w:15, title:"Network Monitoring & Troubleshooting", tag:"Operations",
+        topics:["SNMP: polling, traps, MIBs","NetFlow and traffic analysis","Syslog and centralized logging","Smokeping for latency monitoring","Troubleshooting methodology: OSI bottom-up"],
+        tasks:["Set up Prometheus + node_exporter for network metrics","Simulate network issues and diagnose with ping, traceroute, ss","Build a simple network dashboard in Grafana"],
         project: null,
-        resources: ["Prometheus network monitoring guide", "Zabbix or LibreNMS community docs", "'Network Warrior' — Donahue (operational chapters)"] },
-      { w: 16, title: "Cloud Networking", tag: "Modern",
-        topics: ["VPC: subnets, route tables, internet gateways", "Security groups vs NACLs", "VPC peering and Transit Gateway", "PrivateLink and service endpoints", "Cloud load balancers: ALB, NLB", "Hybrid connectivity: VPN, Direct Connect"],
-        tasks: ["Set up a VPC with public and private subnets on AWS/GCP (free tier)", "Configure security groups for a 3-tier app", "Enable VPC Flow Logs and analyze traffic"],
+        resources:["Prometheus network monitoring guide","Zabbix or LibreNMS community docs","'Network Warrior' — Donahue (operational chapters)"] },
+      { w:16, title:"Cloud Networking", tag:"Modern",
+        topics:["VPC: subnets, route tables, internet gateways","Security groups vs NACLs","VPC peering and Transit Gateway","PrivateLink and service endpoints","Cloud load balancers: ALB, NLB","Hybrid connectivity: VPN, Direct Connect"],
+        tasks:["Set up a VPC with public and private subnets on AWS/GCP (free tier)","Configure security groups for a 3-tier app","Enable VPC Flow Logs and analyze traffic"],
         project: null,
-        resources: ["AWS Networking fundamentals (free training)", "GCP VPC documentation", "A Cloud Guru: AWS networking (intro)"] },
-      { w: 17, title: "Protocol Implementation Project", tag: "Deep Dive",
-        topics: ["TCP state machine in full detail", "Implementing a protocol from an RFC", "Testing and fuzzing your implementation", "Performance profiling a network stack"],
-        tasks: ["Implement a subset of HTTP/1.1 from scratch in Python", "Parse HTTP requests, route them, send responses", "Stress test with Apache Bench (ab)"],
+        resources:["AWS Networking fundamentals (free training)","GCP VPC documentation","A Cloud Guru: AWS networking (intro)"] },
+      { w:17, title:"Protocol Implementation Project", tag:"Deep Dive",
+        topics:["TCP state machine in full detail","Implementing a protocol from an RFC","Testing and fuzzing your implementation","Performance profiling a network stack"],
+        tasks:["Implement a subset of HTTP/1.1 from scratch in Python","Parse HTTP requests, route them, send responses","Stress test with Apache Bench (ab)"],
         project: null,
-        resources: ["RFC 2616 (HTTP/1.1)", "'Computer Networking: Top-Down Approach' Kurose ch.2", "Julia Evans blogs on protocol implementation"] },
-      { w: 18, title: "Capstone: Network Design & Analysis", tag: "Project",
-        topics: ["Full network design process", "Security architecture review", "Performance analysis and bottleneck identification"],
-        tasks: ["Present your final project in a README with diagrams", "Run a complete security audit on your network setup", "Document lessons learned"],
+        resources:["RFC 2616 (HTTP/1.1)","'Computer Networking: Top-Down Approach' Kurose ch.2","Julia Evans blogs on protocol implementation"] },
+      { w:18, title:"Capstone: Network Design & Analysis", tag:"Project",
+        topics:["Full network design process","Security architecture review","Performance analysis and bottleneck identification"],
+        tasks:["Present your final project in a README with diagrams","Run a complete security audit on your network setup","Document lessons learned"],
         project: "Final Project — Design and implement a complete network for a fictional startup: IP scheme with subnetting, firewall rules, VPN for remote workers, DNS setup, load balancer config, monitoring dashboard. Write a 2-page network design document.",
-        resources: ["Your notes + all resources from prior weeks", "'Network to Code' community for inspiration"] }
+        resources:["Your notes + all resources from prior weeks","'Network to Code' community for inspiration"] },
     ],
     outcome: "You understand networking from physical bits to application protocols. You can design, configure, troubleshoot, and secure networks. You can write network tools in Python and architect cloud network topologies.",
-    mistakes: ["Memorizing without understanding — always ask 'why does this exist?'", "Skipping Wireshark — packet analysis is irreplaceable", "Confusing subnetting with routing — they're different layers", "Ignoring IPv6 — the world is transitioning", "Treating security as an afterthought", "Never building anything — configure, not just read"]
+    mistakes: ["Memorizing without understanding — always ask 'why does this exist?'","Skipping Wireshark — packet analysis is irreplaceable","Confusing subnetting with routing — they're different layers","Ignoring IPv6 — the world is transitioning","Treating security as an afterthought","Never building anything — configure, not just read"]
   },
 
   frontend: {
@@ -811,105 +683,105 @@ const DOMAINS = {
     color: "#993556", bg: "#FBEAF0", darkColor: "#ED93B1",
     prereq: "Python to OOP level. Absolutely no HTML/CSS/JS needed — starting from zero. Basic command line for running tools.",
     phases: [
-      { name: "Web Foundations", weeks: [1, 2, 3, 4] },
-      { name: "JavaScript & Interactivity", weeks: [5, 6, 7, 8, 9] },
-      { name: "Modern Frontend", weeks: [10, 11, 12, 13, 14, 15] },
-      { name: "Advanced & Portfolio", weeks: [16, 17, 18] }
+      { name: "Web Foundations", weeks: [1,2,3,4] },
+      { name: "JavaScript & Interactivity", weeks: [5,6,7,8,9] },
+      { name: "Modern Frontend", weeks: [10,11,12,13,14,15] },
+      { name: "Advanced & Portfolio", weeks: [16,17,18] },
     ],
     weeks: [
-      { w: 1, title: "How Browsers Work & HTML Fundamentals", tag: "Foundation",
-        topics: ["Browser rendering pipeline: parsing, layout, paint, composite", "DOM: what it is and why it matters", "Semantic HTML: why structure matters for accessibility + SEO", "Core tags: headings, paragraphs, lists, tables, forms", "HTML5 semantic elements: header, main, nav, section, article, footer"],
-        tasks: ["Build a personal profile page in pure HTML", "Validate your HTML with the W3C validator", "Inspect the DOM of 3 real websites — understand the structure"],
+      { w:1, title:"How Browsers Work & HTML Fundamentals", tag:"Foundation",
+        topics:["Browser rendering pipeline: parsing, layout, paint, composite","DOM: what it is and why it matters","Semantic HTML: why structure matters for accessibility + SEO","Core tags: headings, paragraphs, lists, tables, forms","HTML5 semantic elements: header, main, nav, section, article, footer"],
+        tasks:["Build a personal profile page in pure HTML","Validate your HTML with the W3C validator","Inspect the DOM of 3 real websites — understand the structure"],
         project: null,
-        resources: ["MDN: Introduction to HTML", "'HTML & CSS' — Jon Duckett (ch.1-5)", "CS50W Week 0"] },
-      { w: 2, title: "CSS Fundamentals & Box Model", tag: "Foundation",
-        topics: ["The cascade, specificity, and inheritance", "Box model: margin, border, padding, content", "Display: block, inline, inline-block", "Position: static, relative, absolute, fixed, sticky", "Units: px, em, rem, %, vw/vh — when to use each", "Colors: hex, rgb, hsl"],
-        tasks: ["Style your Week 1 HTML profile page", "Build a CSS card component from a design spec", "Debug a broken layout using DevTools"],
+        resources:["MDN: Introduction to HTML","'HTML & CSS' — Jon Duckett (ch.1-5)","CS50W Week 0"] },
+      { w:2, title:"CSS Fundamentals & Box Model", tag:"Foundation",
+        topics:["The cascade, specificity, and inheritance","Box model: margin, border, padding, content","Display: block, inline, inline-block","Position: static, relative, absolute, fixed, sticky","Units: px, em, rem, %, vw/vh — when to use each","Colors: hex, rgb, hsl"],
+        tasks:["Style your Week 1 HTML profile page","Build a CSS card component from a design spec","Debug a broken layout using DevTools"],
         project: null,
-        resources: ["MDN: CSS basics", "'CSS in Depth' — Keith Grant (ch.1-4)", "Kevin Powell YouTube channel"] },
-      { w: 3, title: "Layout: Flexbox & Grid", tag: "Layout",
-        topics: ["Flexbox: axis, alignment, flex-grow/shrink/basis", "Grid: template areas, fr unit, auto-fill vs auto-fit", "Responsive design: media queries, mobile-first", "CSS custom properties (variables)", "When to use flexbox vs grid"],
-        tasks: ["Recreate a pricing page layout (3-column) with Grid", "Build a responsive navbar with Flexbox", "Build a photo gallery that adapts from 1 to 4 columns"],
+        resources:["MDN: CSS basics","'CSS in Depth' — Keith Grant (ch.1-4)","Kevin Powell YouTube channel"] },
+      { w:3, title:"Layout: Flexbox & Grid", tag:"Layout",
+        topics:["Flexbox: axis, alignment, flex-grow/shrink/basis","Grid: template areas, fr unit, auto-fill vs auto-fit","Responsive design: media queries, mobile-first","CSS custom properties (variables)","When to use flexbox vs grid"],
+        tasks:["Recreate a pricing page layout (3-column) with Grid","Build a responsive navbar with Flexbox","Build a photo gallery that adapts from 1 to 4 columns"],
         project: "Mini Project 1 — Build a fully responsive multi-page personal portfolio website (HTML + CSS only). Must look good on mobile and desktop.",
-        resources: ["flexboxfroggy.com", "cssgridgarden.com", "Kevin Powell: Flexbox vs Grid (YouTube)"] },
-      { w: 4, title: "CSS Advanced: Animations, Transitions & Architecture", tag: "Advanced CSS",
-        topics: ["Transitions and keyframe animations", "CSS transforms: translate, scale, rotate", "BEM naming methodology", "CSS architecture at scale", "Accessibility: contrast, focus states, ARIA intro", "Web fonts and typography scale"],
-        tasks: ["Add animations to your portfolio", "Implement a dark mode toggle with CSS variables", "Refactor your CSS using BEM naming"],
+        resources:["flexboxfroggy.com","cssgridgarden.com","Kevin Powell: Flexbox vs Grid (YouTube)"] },
+      { w:4, title:"CSS Advanced: Animations, Transitions & Architecture", tag:"Advanced CSS",
+        topics:["Transitions and keyframe animations","CSS transforms: translate, scale, rotate","BEM naming methodology","CSS architecture at scale","Accessibility: contrast, focus states, ARIA intro","Web fonts and typography scale"],
+        tasks:["Add animations to your portfolio","Implement a dark mode toggle with CSS variables","Refactor your CSS using BEM naming"],
         project: null,
-        resources: ["MDN: CSS animations", "Animista.net", "'Every Layout' — Heydon & Andy Bell (smashingmagazine.com)"] },
-      { w: 5, title: "JavaScript: The Language", tag: "JS Core",
-        topics: ["JavaScript's role in the browser", "Variables: let/const vs var — scope and hoisting", "Data types: primitives vs objects", "Functions: declarations, expressions, arrow functions", "Arrays and objects: methods, destructuring, spread", "Control flow and error handling with try/catch"],
-        tasks: ["Solve 20 exercises on exercism.io (JavaScript track)", "Build a tip calculator (DOM not needed yet — just console)", "Explain hoisting and closures to yourself out loud"],
+        resources:["MDN: CSS animations","Animista.net","'Every Layout' — Heydon & Andy Bell (smashingmagazine.com)"] },
+      { w:5, title:"JavaScript: The Language", tag:"JS Core",
+        topics:["JavaScript's role in the browser","Variables: let/const vs var — scope and hoisting","Data types: primitives vs objects","Functions: declarations, expressions, arrow functions","Arrays and objects: methods, destructuring, spread","Control flow and error handling with try/catch"],
+        tasks:["Solve 20 exercises on exercism.io (JavaScript track)","Build a tip calculator (DOM not needed yet — just console)","Explain hoisting and closures to yourself out loud"],
         project: null,
-        resources: ["'Eloquent JavaScript' (eloquentjavascript.net) — free", "javascript.info — the definitive reference", "Kyle Simpson: 'You Don't Know JS' (ch.1-3)"] },
-      { w: 6, title: "DOM Manipulation & Events", tag: "Browser JS",
-        topics: ["Selecting elements: querySelector, getElementById", "Modifying DOM: textContent, innerHTML, classList", "Creating and removing elements dynamically", "Event listeners: click, input, submit, keyboard", "Event bubbling and delegation", "Forms: validation, preventDefault"],
-        tasks: ["Build an interactive to-do list (add, complete, delete)", "Build a character counter for a textarea", "Implement a filter/search on a list of items"],
+        resources:["'Eloquent JavaScript' (eloquentjavascript.net) — free","javascript.info — the definitive reference","Kyle Simpson: 'You Don't Know JS' (ch.1-3)"] },
+      { w:6, title:"DOM Manipulation & Events", tag:"Browser JS",
+        topics:["Selecting elements: querySelector, getElementById","Modifying DOM: textContent, innerHTML, classList","Creating and removing elements dynamically","Event listeners: click, input, submit, keyboard","Event bubbling and delegation","Forms: validation, preventDefault"],
+        tasks:["Build an interactive to-do list (add, complete, delete)","Build a character counter for a textarea","Implement a filter/search on a list of items"],
         project: null,
-        resources: ["javascript.info: DOM section", "MDN: Introduction to events", "Wes Bos: JavaScript30 (first 10 exercises — free)"] },
-      { w: 7, title: "Asynchronous JavaScript", tag: "Async JS",
-        topics: ["Synchronous vs asynchronous JavaScript", "Callbacks and callback hell", "Promises: .then(), .catch(), .finally()", "async/await syntax", "fetch API: making HTTP requests", "Error handling in async code", "CORS and why it exists"],
-        tasks: ["Fetch data from a public API (OpenWeather, Pokemon API)", "Build a weather app that fetches live data", "Handle loading and error states in UI"],
+        resources:["javascript.info: DOM section","MDN: Introduction to events","Wes Bos: JavaScript30 (first 10 exercises — free)"] },
+      { w:7, title:"Asynchronous JavaScript", tag:"Async JS",
+        topics:["Synchronous vs asynchronous JavaScript","Callbacks and callback hell","Promises: .then(), .catch(), .finally()","async/await syntax","fetch API: making HTTP requests","Error handling in async code","CORS and why it exists"],
+        tasks:["Fetch data from a public API (OpenWeather, Pokemon API)","Build a weather app that fetches live data","Handle loading and error states in UI"],
         project: "Mini Project 2 — Build a Movie Search App using the OMDb or TMDB API: search bar, async fetch, display results as cards, show details on click, loading and error states.",
-        resources: ["javascript.info: Promises, async/await", "MDN: fetch API", "'Asynchronous JavaScript' — Jake Archibald (Google I/O talk)"] },
-      { w: 8, title: "Modern JavaScript (ES6+) & Modules", tag: "Modern JS",
-        topics: ["ES6+ features: optional chaining, nullish coalescing", "JavaScript modules: import/export", "Module bundlers: what Webpack/Vite do and why", "npm: package.json, dependencies, scripts", "localStorage and sessionStorage", "Browser APIs: Intersection Observer, ResizeObserver"],
-        tasks: ["Convert a project to use ES modules", "Set up a Vite project from scratch", "Implement infinite scroll with Intersection Observer"],
+        resources:["javascript.info: Promises, async/await","MDN: fetch API","'Asynchronous JavaScript' — Jake Archibald (Google I/O talk)"] },
+      { w:8, title:"Modern JavaScript (ES6+) & Modules", tag:"Modern JS",
+        topics:["ES6+ features: optional chaining, nullish coalescing","JavaScript modules: import/export","Module bundlers: what Webpack/Vite do and why","npm: package.json, dependencies, scripts","localStorage and sessionStorage","Browser APIs: Intersection Observer, ResizeObserver"],
+        tasks:["Convert a project to use ES modules","Set up a Vite project from scratch","Implement infinite scroll with Intersection Observer"],
         project: null,
-        resources: ["MDN: JavaScript modules", "Vite docs: getting started", "'JavaScript: The Good Parts' — Crockford (conceptual)"] },
-      { w: 9, title: "TypeScript Fundamentals", tag: "TypeScript",
-        topics: ["Why TypeScript: catching bugs at compile time", "Types: primitives, arrays, unions, intersections", "Interfaces vs type aliases", "Generics: the concept and common patterns", "TypeScript with DOM", "tsconfig.json essentials"],
-        tasks: ["Rewrite your Movie Search App in TypeScript", "Add types to all function signatures", "Fix all type errors — understand each one"],
+        resources:["MDN: JavaScript modules","Vite docs: getting started","'JavaScript: The Good Parts' — Crockford (conceptual)"] },
+      { w:9, title:"TypeScript Fundamentals", tag:"TypeScript",
+        topics:["Why TypeScript: catching bugs at compile time","Types: primitives, arrays, unions, intersections","Interfaces vs type aliases","Generics: the concept and common patterns","TypeScript with DOM","tsconfig.json essentials"],
+        tasks:["Rewrite your Movie Search App in TypeScript","Add types to all function signatures","Fix all type errors — understand each one"],
         project: null,
-        resources: ["TypeScript official handbook", "'Programming TypeScript' — Boris Cherny (ch.1-4)", "Matt Pocock: TypeScript tips (YouTube)"] },
-      { w: 10, title: "React: Core Concepts", tag: "React",
-        topics: ["Why React: component model, declarative UI", "JSX and what transpiles to", "Components: function components only", "Props and prop types", "State with useState", "Conditional rendering and lists", "React DevTools"],
-        tasks: ["Build a counter app, then a shopping cart", "Convert your Movie Search App to React", "Practice extracting components — smallest possible unit"],
+        resources:["TypeScript official handbook","'Programming TypeScript' — Boris Cherny (ch.1-4)","Matt Pocock: TypeScript tips (YouTube)"] },
+      { w:10, title:"React: Core Concepts", tag:"React",
+        topics:["Why React: component model, declarative UI","JSX and what transpiles to","Components: function components only","Props and prop types","State with useState","Conditional rendering and lists","React DevTools"],
+        tasks:["Build a counter app, then a shopping cart","Convert your Movie Search App to React","Practice extracting components — smallest possible unit"],
         project: null,
-        resources: ["react.dev official tutorial (the new one)", "'The Road to React' — Robin Wieruch", "Scrimba: Learn React for free"] },
-      { w: 11, title: "React: Hooks & Data Fetching", tag: "React",
-        topics: ["useEffect: lifecycle in function components", "Custom hooks: extracting reusable logic", "useContext: avoiding prop drilling", "useReducer for complex state", "Data fetching patterns: React Query / SWR", "Error boundaries"],
-        tasks: ["Build a custom useFetch hook", "Add React Query to your Movie Search app", "Implement global theme context"],
+        resources:["react.dev official tutorial (the new one)","'The Road to React' — Robin Wieruch","Scrimba: Learn React for free"] },
+      { w:11, title:"React: Hooks & Data Fetching", tag:"React",
+        topics:["useEffect: lifecycle in function components","Custom hooks: extracting reusable logic","useContext: avoiding prop drilling","useReducer for complex state","Data fetching patterns: React Query / SWR","Error boundaries"],
+        tasks:["Build a custom useFetch hook","Add React Query to your Movie Search app","Implement global theme context"],
         project: null,
-        resources: ["react.dev: hooks reference", "TanStack Query (React Query) docs", "Kent C. Dodds: Epic React (hooks section)"] },
-      { w: 12, title: "React Router & Application Architecture", tag: "React",
-        topics: ["Client-side routing: React Router v6", "Nested routes, layouts, protected routes", "URL parameters and search params", "Code splitting: lazy + Suspense", "State management: when to use what — local vs global", "Zustand or Jotai for global state"],
-        tasks: ["Add multi-page routing to your Movie app", "Implement a protected route with fake auth", "Add code splitting on heavy routes"],
+        resources:["react.dev: hooks reference","TanStack Query (React Query) docs","Kent C. Dodds: Epic React (hooks section)"] },
+      { w:12, title:"React Router & Application Architecture", tag:"React",
+        topics:["Client-side routing: React Router v6","Nested routes, layouts, protected routes","URL parameters and search params","Code splitting: lazy + Suspense","State management: when to use what — local vs global","Zustand or Jotai for global state"],
+        tasks:["Add multi-page routing to your Movie app","Implement a protected route with fake auth","Add code splitting on heavy routes"],
         project: "Major Project — Build a full E-commerce Frontend: product listing, search/filter, cart with global state, checkout flow, auth pages, React Router, TypeScript, and React Query.",
-        resources: ["React Router v6 docs", "Zustand docs", "Kent C. Dodds: application state management (blog)"] },
-      { w: 13, title: "CSS in Modern Frontend: Tailwind & Styling", tag: "Styling",
-        topics: ["Utility-first CSS: the Tailwind philosophy", "Tailwind configuration and theming", "Component libraries: shadcn/ui, Radix UI primitives", "CSS-in-JS: styled-components, emotion (trade-offs)", "Design systems and design tokens", "Responsive design in Tailwind"],
-        tasks: ["Rebuild your portfolio using Tailwind", "Add shadcn/ui components to your React app", "Create a reusable Button component with variants"],
+        resources:["React Router v6 docs","Zustand docs","Kent C. Dodds: application state management (blog)"] },
+      { w:13, title:"CSS in Modern Frontend: Tailwind & Styling", tag:"Styling",
+        topics:["Utility-first CSS: the Tailwind philosophy","Tailwind configuration and theming","Component libraries: shadcn/ui, Radix UI primitives","CSS-in-JS: styled-components, emotion (trade-offs)","Design systems and design tokens","Responsive design in Tailwind"],
+        tasks:["Rebuild your portfolio using Tailwind","Add shadcn/ui components to your React app","Create a reusable Button component with variants"],
         project: null,
-        resources: ["Tailwind CSS docs", "shadcn/ui docs", "'Refactoring UI' — Wathan & Schoger (book)"] },
-      { w: 14, title: "Testing Frontend Applications", tag: "Quality",
-        topics: ["Unit testing with Vitest", "Testing Library: testing by user behavior", "What NOT to test (implementation details)", "E2E testing with Playwright", "Snapshot testing — when it helps vs hurts", "Accessibility testing: axe-core"],
-        tasks: ["Write tests for every component in your E-commerce app", "Add one Playwright e2e test for the checkout flow", "Run axe-core and fix accessibility violations"],
+        resources:["Tailwind CSS docs","shadcn/ui docs","'Refactoring UI' — Wathan & Schoger (book)"] },
+      { w:14, title:"Testing Frontend Applications", tag:"Quality",
+        topics:["Unit testing with Vitest","Testing Library: testing by user behavior","What NOT to test (implementation details)","E2E testing with Playwright","Snapshot testing — when it helps vs hurts","Accessibility testing: axe-core"],
+        tasks:["Write tests for every component in your E-commerce app","Add one Playwright e2e test for the checkout flow","Run axe-core and fix accessibility violations"],
         project: null,
-        resources: ["Testing Library docs", "Playwright docs", "Kent C. Dodds: 'Common mistakes with React Testing Library' (blog)"] },
-      { w: 15, title: "Next.js & Server-Side Rendering", tag: "Framework",
-        topics: ["The rendering spectrum: CSR, SSR, SSG, ISR", "Next.js App Router", "Server components vs client components", "API routes and server actions", "Image optimization, font optimization", "SEO in Next.js: metadata API"],
-        tasks: ["Rebuild your Movie Search App in Next.js with SSR", "Add a server-side API route", "Measure Core Web Vitals with Lighthouse before/after"],
+        resources:["Testing Library docs","Playwright docs","Kent C. Dodds: 'Common mistakes with React Testing Library' (blog)"] },
+      { w:15, title:"Next.js & Server-Side Rendering", tag:"Framework",
+        topics:["The rendering spectrum: CSR, SSR, SSG, ISR","Next.js App Router","Server components vs client components","API routes and server actions","Image optimization, font optimization","SEO in Next.js: metadata API"],
+        tasks:["Rebuild your Movie Search App in Next.js with SSR","Add a server-side API route","Measure Core Web Vitals with Lighthouse before/after"],
         project: null,
-        resources: ["Next.js official tutorial (nextjs.org)", "'Full Stack Next.js' — Lee Robinson (blog series)", "Theo: Next.js explained (YouTube)"] },
-      { w: 16, title: "Performance & Core Web Vitals", tag: "Performance",
-        topics: ["Core Web Vitals: LCP, FID/INP, CLS", "Critical rendering path", "Code splitting, lazy loading, prefetching", "Image formats: WebP, AVIF, responsive images", "Bundle analysis: what's making your app slow", "Service workers and caching strategies"],
-        tasks: ["Audit your E-commerce app with Lighthouse — score ≥90", "Analyze bundle with vite-bundle-visualizer", "Implement image lazy loading and measure CLS"],
+        resources:["Next.js official tutorial (nextjs.org)","'Full Stack Next.js' — Lee Robinson (blog series)","Theo: Next.js explained (YouTube)"] },
+      { w:16, title:"Performance & Core Web Vitals", tag:"Performance",
+        topics:["Core Web Vitals: LCP, FID/INP, CLS","Critical rendering path","Code splitting, lazy loading, prefetching","Image formats: WebP, AVIF, responsive images","Bundle analysis: what's making your app slow","Service workers and caching strategies"],
+        tasks:["Audit your E-commerce app with Lighthouse — score ≥90","Analyze bundle with vite-bundle-visualizer","Implement image lazy loading and measure CLS"],
         project: null,
-        resources: ["web.dev: Core Web Vitals guide", "'High Performance Web Sites' — Souders", "Chrome DevTools Performance profiling docs"] },
-      { w: 17, title: "Accessibility & Internationalisation", tag: "Professional",
-        topics: ["WCAG 2.1 AA — the standard and why it matters", "ARIA roles, labels, live regions", "Keyboard navigation and focus management", "Screen reader testing with NVDA/VoiceOver", "i18n: react-i18next", "RTL layouts"],
-        tasks: ["Make your entire E-commerce app keyboard-navigable", "Test with a screen reader — fix every issue", "Add English and one other language to your app"],
+        resources:["web.dev: Core Web Vitals guide","'High Performance Web Sites' — Souders","Chrome DevTools Performance profiling docs"] },
+      { w:17, title:"Accessibility & Internationalisation", tag:"Professional",
+        topics:["WCAG 2.1 AA — the standard and why it matters","ARIA roles, labels, live regions","Keyboard navigation and focus management","Screen reader testing with NVDA/VoiceOver","i18n: react-i18next","RTL layouts"],
+        tasks:["Make your entire E-commerce app keyboard-navigable","Test with a screen reader — fix every issue","Add English and one other language to your app"],
         project: null,
-        resources: ["MDN: ARIA", "'Inclusive Components' — Heydon Pickering (book, free online)", "WebAIM resources"] },
-      { w: 18, title: "Capstone & Portfolio Finalization", tag: "Project",
-        topics: ["Portfolio strategy for frontend engineers", "Performance optimization sprint", "Accessibility audit", "Deployment: Vercel, Netlify"],
-        tasks: ["Deploy all projects publicly", "Write case studies for each project", "Record a 3-minute walkthrough video"],
+        resources:["MDN: ARIA","'Inclusive Components' — Heydon Pickering (book, free online)","WebAIM resources"] },
+      { w:18, title:"Capstone & Portfolio Finalization", tag:"Project",
+        topics:["Portfolio strategy for frontend engineers","Performance optimization sprint","Accessibility audit","Deployment: Vercel, Netlify"],
+        tasks:["Deploy all projects publicly","Write case studies for each project","Record a 3-minute walkthrough video"],
         project: "Final Project — Build a full-featured Dashboard/Analytics UI: Next.js, TypeScript, Tailwind, Recharts for data viz, React Query for data fetching, dark mode, full keyboard accessibility, i18n (2 languages), Lighthouse score ≥90. Publicly deployed.",
-        resources: ["Vercel docs", "'Portfolio for Developers' guide — CSS Tricks", "Your previous projects"] }
+        resources:["Vercel docs","'Portfolio for Developers' guide — CSS Tricks","Your previous projects"] },
     ],
     outcome: "You can build production-quality, accessible, performant React/Next.js applications. You understand the browser deeply, write TypeScript, test your code, and can deploy modern frontends. You have a portfolio of real deployed projects.",
-    mistakes: ["Copying and pasting CSS without understanding it", "Skipping accessibility — it's not optional", "Learning React before understanding JS fundamentals", "Ignoring TypeScript — it saves hours of debugging", "Testing only happy paths", "Not caring about performance — Lighthouse is your report card", "Using frameworks before understanding what they solve"]
+    mistakes: ["Copying and pasting CSS without understanding it","Skipping accessibility — it's not optional","Learning React before understanding JS fundamentals","Ignoring TypeScript — it saves hours of debugging","Testing only happy paths","Not caring about performance — Lighthouse is your report card","Using frameworks before understanding what they solve"]
   },
 
   systems: {
@@ -917,105 +789,105 @@ const DOMAINS = {
     color: "#534AB7", bg: "#EEEDFE", darkColor: "#AFA9EC",
     prereq: "Python to OOP. Familiarity with the command line. Helpful to have basic understanding of binary (Week 1 covers this).",
     phases: [
-      { name: "Computer Architecture", weeks: [1, 2, 3, 4, 5] },
-      { name: "Operating Systems", weeks: [6, 7, 8, 9, 10, 11] },
-      { name: "Systems Programming", weeks: [12, 13, 14, 15, 16] },
-      { name: "Architecture & Design", weeks: [17, 18] }
+      { name: "Computer Architecture", weeks: [1,2,3,4,5] },
+      { name: "Operating Systems", weeks: [6,7,8,9,10,11] },
+      { name: "Systems Programming", weeks: [12,13,14,15,16] },
+      { name: "Architecture & Design", weeks: [17,18] },
     ],
     weeks: [
-      { w: 1, title: "Digital Logic & Binary Arithmetic", tag: "Architecture",
-        topics: ["Boolean algebra: AND, OR, NOT, NAND, NOR, XOR", "Logic gates to circuits", "Half adder, full adder", "Binary arithmetic: add, subtract, overflow", "Two's complement for signed numbers", "Flip-flops and basic memory"],
-        tasks: ["Build a 4-bit adder on paper", "Simulate logic gates on circuitverse.org", "Prove that NAND alone is universal"],
+      { w:1, title:"Digital Logic & Binary Arithmetic", tag:"Architecture",
+        topics:["Boolean algebra: AND, OR, NOT, NAND, NOR, XOR","Logic gates to circuits","Half adder, full adder","Binary arithmetic: add, subtract, overflow","Two's complement for signed numbers","Flip-flops and basic memory"],
+        tasks:["Build a 4-bit adder on paper","Simulate logic gates on circuitverse.org","Prove that NAND alone is universal"],
         project: null,
-        resources: ["nand2tetris.org — start here (free + project-based)", "Ben Eater: 8-bit CPU series (YouTube)", "'The Elements of Computing Systems' — Nisan & Schocken"] },
-      { w: 2, title: "Computer Architecture: CPU Internals", tag: "Architecture",
-        topics: ["Von Neumann vs Harvard architecture", "ALU, registers, control unit", "Instruction set architecture (ISA): RISC vs CISC", "Fetch-decode-execute cycle", "Memory hierarchy: registers → L1/L2/L3 → RAM → disk", "Clock speed, IPC, and why GHz isn't everything"],
-        tasks: ["Complete nand2tetris Part 1 (chips)", "Draw the fetch-execute cycle for a simple instruction", "Benchmark memory access at different levels (valgrind/perf)"],
+        resources:["nand2tetris.org — start here (free + project-based)","Ben Eater: 8-bit CPU series (YouTube)","'The Elements of Computing Systems' — Nisan & Schocken"] },
+      { w:2, title:"Computer Architecture: CPU Internals", tag:"Architecture",
+        topics:["Von Neumann vs Harvard architecture","ALU, registers, control unit","Instruction set architecture (ISA): RISC vs CISC","Fetch-decode-execute cycle","Memory hierarchy: registers → L1/L2/L3 → RAM → disk","Clock speed, IPC, and why GHz isn't everything"],
+        tasks:["Complete nand2tetris Part 1 (chips)","Draw the fetch-execute cycle for a simple instruction","Benchmark memory access at different levels (valgrind/perf)"],
         project: null,
-        resources: ["nand2tetris Part 1", "'Computer Organization and Architecture' — Stallings ch.1-3", "Ben Eater: CPU series (YouTube)"] },
-      { w: 3, title: "Assembly Language Fundamentals", tag: "Low Level",
-        topics: ["Why learn assembly: understanding the machine", "x86-64 registers: RAX, RBX, RSP, RBP, etc.", "MOV, ADD, SUB, CMP, JMP instructions", "Function call conventions: stack frames, prologue/epilogue", "Calling conventions: System V ABI", "Stack vs heap at the machine level"],
-        tasks: ["Write 'Hello World' in x86-64 NASM assembly", "Write a factorial function in assembly", "Compile C code and inspect the generated assembly with objdump"],
+        resources:["nand2tetris Part 1","'Computer Organization and Architecture' — Stallings ch.1-3","Ben Eater: CPU series (YouTube)"] },
+      { w:3, title:"Assembly Language Fundamentals", tag:"Low Level",
+        topics:["Why learn assembly: understanding the machine","x86-64 registers: RAX, RBX, RSP, RBP, etc.","MOV, ADD, SUB, CMP, JMP instructions","Function call conventions: stack frames, prologue/epilogue","Calling conventions: System V ABI","Stack vs heap at the machine level"],
+        tasks:["Write 'Hello World' in x86-64 NASM assembly","Write a factorial function in assembly","Compile C code and inspect the generated assembly with objdump"],
         project: null,
-        resources: ["'Programming from the Ground Up' — Bartlett (free PDF)", "godbolt.org: Compiler Explorer", "NASM documentation"] },
-      { w: 4, title: "C Programming for Systems", tag: "Systems Language",
-        topics: ["Why C: direct memory control, portability", "Pointers: addresses, dereferencing, pointer arithmetic", "Arrays and strings in C (no bounds checking!)", "Structs, unions, enums", "malloc/free and memory management", "Undefined behavior — what and why"],
-        tasks: ["Implement a linked list in C", "Write a simple string library in C", "Intentionally create a buffer overflow and understand what happens (in a safe env)"],
+        resources:["'Programming from the Ground Up' — Bartlett (free PDF)","godbolt.org: Compiler Explorer","NASM documentation"] },
+      { w:4, title:"C Programming for Systems", tag:"Systems Language",
+        topics:["Why C: direct memory control, portability","Pointers: addresses, dereferencing, pointer arithmetic","Arrays and strings in C (no bounds checking!)","Structs, unions, enums","malloc/free and memory management","Undefined behavior — what and why"],
+        tasks:["Implement a linked list in C","Write a simple string library in C","Intentionally create a buffer overflow and understand what happens (in a safe env)"],
         project: null,
-        resources: ["'The C Programming Language' — Kernighan & Ritchie (K&R)", "CS50 (weeks covering C)", "beej.us/guide/bgc/"] },
-      { w: 5, title: "Memory Layout & Management", tag: "Memory",
-        topics: ["Process memory layout: text, data, BSS, heap, stack", "Stack growth direction and overflow", "Heap allocation internals: free lists, fragmentation", "Garbage collection vs manual memory", "Valgrind for memory error detection", "Smart pointers (concept, not C++)"],
-        tasks: ["Draw the memory layout of a running C program", "Find and fix memory leaks in a given C program with Valgrind", "Implement a minimal malloc using mmap"],
+        resources:["'The C Programming Language' — Kernighan & Ritchie (K&R)","CS50 (weeks covering C)","beej.us/guide/bgc/"] },
+      { w:5, title:"Memory Layout & Management", tag:"Memory",
+        topics:["Process memory layout: text, data, BSS, heap, stack","Stack growth direction and overflow","Heap allocation internals: free lists, fragmentation","Garbage collection vs manual memory","Valgrind for memory error detection","Smart pointers (concept, not C++)"],
+        tasks:["Draw the memory layout of a running C program","Find and fix memory leaks in a given C program with Valgrind","Implement a minimal malloc using mmap"],
         project: "Mini Project 1 — Build a simple memory allocator in C: malloc, free, and realloc. Support coalescing of free blocks.",
-        resources: ["'Computer Systems: A Programmer's Perspective' (CSAPP) ch.9", "malloc internals blog — sploitfun.wordpress.com", "Valgrind user manual"] },
-      { w: 6, title: "Operating System Concepts", tag: "OS",
-        topics: ["What an OS does and why it exists", "Kernel space vs user space", "System calls: the interface between them", "Process vs thread", "Context switching: what it costs", "The OS as a resource manager"],
-        tasks: ["Trace system calls of a program with strace", "Write a C program that makes explicit syscalls", "Draw the context switch process on paper"],
+        resources:["'Computer Systems: A Programmer's Perspective' (CSAPP) ch.9","malloc internals blog — sploitfun.wordpress.com","Valgrind user manual"] },
+      { w:6, title:"Operating System Concepts", tag:"OS",
+        topics:["What an OS does and why it exists","Kernel space vs user space","System calls: the interface between them","Process vs thread","Context switching: what it costs","The OS as a resource manager"],
+        tasks:["Trace system calls of a program with strace","Write a C program that makes explicit syscalls","Draw the context switch process on paper"],
         project: null,
-        resources: ["'Operating Systems: Three Easy Pieces' — OSTEP (ostep.org — free)", "MIT 6.S081 xv6 labs", "Linux kernel: reading a syscall's source"] },
-      { w: 7, title: "Processes & Scheduling", tag: "OS",
-        topics: ["Process lifecycle: new, ready, running, blocked, terminated", "PCB: Process Control Block contents", "Scheduling algorithms: FIFO, SJF, Round Robin, MLFQ", "Priority inversion problem", "fork(), exec(), wait() in Unix", "Zombie and orphan processes"],
-        tasks: ["Write a C program using fork() to create a process tree", "Implement Round Robin scheduler in Python (simulation)", "Use ps, top, htop to analyze running processes"],
+        resources:["'Operating Systems: Three Easy Pieces' — OSTEP (ostep.org — free)","MIT 6.S081 xv6 labs","Linux kernel: reading a syscall's source"] },
+      { w:7, title:"Processes & Scheduling", tag:"OS",
+        topics:["Process lifecycle: new, ready, running, blocked, terminated","PCB: Process Control Block contents","Scheduling algorithms: FIFO, SJF, Round Robin, MLFQ","Priority inversion problem","fork(), exec(), wait() in Unix","Zombie and orphan processes"],
+        tasks:["Write a C program using fork() to create a process tree","Implement Round Robin scheduler in Python (simulation)","Use ps, top, htop to analyze running processes"],
         project: null,
-        resources: ["OSTEP: Scheduling chapters", "xv6 source: proc.c", "'The Linux Programming Interface' — Kerrisk (ch.24-26)"] },
-      { w: 8, title: "Concurrency: Threads & Synchronisation", tag: "Concurrency",
-        topics: ["Threads vs processes: shared memory", "Race conditions — why they're hard to debug", "Mutex, semaphore, spinlock", "Deadlock: conditions and prevention", "Condition variables and monitors", "Lock-free data structures (concept)"],
-        tasks: ["Reproduce a race condition in C with pthreads", "Fix it with a mutex — measure the overhead", "Implement a producer-consumer queue with semaphores"],
+        resources:["OSTEP: Scheduling chapters","xv6 source: proc.c","'The Linux Programming Interface' — Kerrisk (ch.24-26)"] },
+      { w:8, title:"Concurrency: Threads & Synchronisation", tag:"Concurrency",
+        topics:["Threads vs processes: shared memory","Race conditions — why they're hard to debug","Mutex, semaphore, spinlock","Deadlock: conditions and prevention","Condition variables and monitors","Lock-free data structures (concept)"],
+        tasks:["Reproduce a race condition in C with pthreads","Fix it with a mutex — measure the overhead","Implement a producer-consumer queue with semaphores"],
         project: null,
-        resources: ["OSTEP: Concurrency chapters (free online)", "'The Art of Multiprocessor Programming' ch.1-2", "Neso Academy: OS concurrency (YouTube)"] },
-      { w: 9, title: "Memory Management: Virtual Memory & Paging", tag: "OS",
-        topics: ["Virtual address space and why it exists", "Paging: page tables, TLB, page faults", "Page replacement algorithms: LRU, CLOCK, optimal", "Demand paging and copy-on-write", "Thrashing and working set model", "Memory-mapped files (mmap)"],
-        tasks: ["Measure TLB miss cost experimentally in C", "Implement LRU cache in Python (from scratch, not lru_cache)", "Use mmap to read a large file without loading it fully"],
+        resources:["OSTEP: Concurrency chapters (free online)","'The Art of Multiprocessor Programming' ch.1-2","Neso Academy: OS concurrency (YouTube)"] },
+      { w:9, title:"Memory Management: Virtual Memory & Paging", tag:"OS",
+        topics:["Virtual address space and why it exists","Paging: page tables, TLB, page faults","Page replacement algorithms: LRU, CLOCK, optimal","Demand paging and copy-on-write","Thrashing and working set model","Memory-mapped files (mmap)"],
+        tasks:["Measure TLB miss cost experimentally in C","Implement LRU cache in Python (from scratch, not lru_cache)","Use mmap to read a large file without loading it fully"],
         project: null,
-        resources: ["OSTEP: Virtual Memory chapters", "CSAPP ch.9 (virtual memory)", "'What every programmer should know about memory' — Drepper (paper)"] },
-      { w: 10, title: "File Systems", tag: "OS",
-        topics: ["File abstraction and inodes", "Directory structure: how paths resolve", "File system internals: ext4, APFS, NTFS concepts", "FAT vs journaling file systems", "VFS: Virtual File System layer in Linux", "FUSE: user-space file systems"],
-        tasks: ["Inspect inodes with stat and ls -i", "Build a tiny in-memory file system in Python (dict-based)", "Write a FUSE file system that reads from a ZIP file"],
+        resources:["OSTEP: Virtual Memory chapters","CSAPP ch.9 (virtual memory)","'What every programmer should know about memory' — Drepper (paper)"] },
+      { w:10, title:"File Systems", tag:"OS",
+        topics:["File abstraction and inodes","Directory structure: how paths resolve","File system internals: ext4, APFS, NTFS concepts","FAT vs journaling file systems","VFS: Virtual File System layer in Linux","FUSE: user-space file systems"],
+        tasks:["Inspect inodes with stat and ls -i","Build a tiny in-memory file system in Python (dict-based)","Write a FUSE file system that reads from a ZIP file"],
         project: "Mini Project 2 — Build a simple disk-based key-value store in C: write, read, delete. Handle crashes gracefully with a WAL (write-ahead log).",
-        resources: ["OSTEP: Persistence chapters", "'The Design and Implementation of the FreeBSD OS' ch.7", "ext4 data structures documentation"] },
-      { w: 11, title: "I/O & Device Drivers", tag: "OS",
-        topics: ["Synchronous vs asynchronous I/O", "Blocking vs non-blocking I/O", "epoll/kqueue/io_uring: modern async I/O", "Interrupt-driven vs polling", "DMA: Direct Memory Access", "Device driver model in Linux"],
-        tasks: ["Compare blocking read() vs epoll on a socket", "Benchmark synchronous vs async file I/O", "Read the source of a simple Linux char device driver"],
+        resources:["OSTEP: Persistence chapters","'The Design and Implementation of the FreeBSD OS' ch.7","ext4 data structures documentation"] },
+      { w:11, title:"I/O & Device Drivers", tag:"OS",
+        topics:["Synchronous vs asynchronous I/O","Blocking vs non-blocking I/O","epoll/kqueue/io_uring: modern async I/O","Interrupt-driven vs polling","DMA: Direct Memory Access","Device driver model in Linux"],
+        tasks:["Compare blocking read() vs epoll on a socket","Benchmark synchronous vs async file I/O","Read the source of a simple Linux char device driver"],
         project: null,
-        resources: ["'Linux Device Drivers' — Corbet, Rubini, Hartman (free PDF)", "io_uring explainer — Lord.io", "OSTEP: I/O chapter"] },
-      { w: 12, title: "Systems Programming in C: Advanced", tag: "Systems Code",
-        topics: ["Signal handling: SIGINT, SIGTERM, SIGCHLD", "IPC: pipes, FIFOs, message queues, shared memory", "Unix domain sockets", "Dynamic linking vs static linking", "ELF binary format", "Makefiles and build systems"],
-        tasks: ["Write a shell in C (fork, exec, pipes, signal handling)", "Build a mini IPC system between two processes", "Inspect an ELF binary with readelf and nm"],
+        resources:["'Linux Device Drivers' — Corbet, Rubini, Hartman (free PDF)","io_uring explainer — Lord.io","OSTEP: I/O chapter"] },
+      { w:12, title:"Systems Programming in C: Advanced", tag:"Systems Code",
+        topics:["Signal handling: SIGINT, SIGTERM, SIGCHLD","IPC: pipes, FIFOs, message queues, shared memory","Unix domain sockets","Dynamic linking vs static linking","ELF binary format","Makefiles and build systems"],
+        tasks:["Write a shell in C (fork, exec, pipes, signal handling)","Build a mini IPC system between two processes","Inspect an ELF binary with readelf and nm"],
         project: null,
-        resources: ["'The Linux Programming Interface' — Kerrisk", "'Write a Shell in C' tutorial (viewsourcecode.org)", "GNU Make documentation"] },
-      { w: 13, title: "Performance Engineering", tag: "Performance",
-        topics: ["CPU performance counters", "Profiling: sampling vs instrumentation", "Cache-friendly data structures", "Branch prediction and misses", "SIMD: vector instructions intro", "Amdahl's law and bottleneck analysis"],
-        tasks: ["Profile a slow C program with perf or gprof", "Rewrite a loop to be cache-friendly — measure speedup", "Implement a matrix multiply and optimize it iteratively"],
+        resources:["'The Linux Programming Interface' — Kerrisk","'Write a Shell in C' tutorial (viewsourcecode.org)","GNU Make documentation"] },
+      { w:13, title:"Performance Engineering", tag:"Performance",
+        topics:["CPU performance counters","Profiling: sampling vs instrumentation","Cache-friendly data structures","Branch prediction and misses","SIMD: vector instructions intro","Amdahl's law and bottleneck analysis"],
+        tasks:["Profile a slow C program with perf or gprof","Rewrite a loop to be cache-friendly — measure speedup","Implement a matrix multiply and optimize it iteratively"],
         project: null,
-        resources: ["perf tutorial — brendangregg.com", "'Computer Architecture: A Quantitative Approach' ch.1-2", "'Performance Analysis and Tuning on Modern CPU' — Lempel (free PDF)"] },
-      { w: 14, title: "Distributed Systems Fundamentals", tag: "Distributed",
-        topics: ["Why distributed systems: scale, fault tolerance", "Fallacies of distributed computing", "CAP theorem and trade-offs", "Replication: leader-follower, multi-leader", "Consensus: Raft algorithm (conceptual)", "Clocks: Lamport timestamps, vector clocks"],
-        tasks: ["Implement a simple key-value store with replication in Python", "Simulate a network partition and see what breaks", "Draw sequence diagrams for Raft leader election"],
+        resources:["perf tutorial — brendangregg.com","'Computer Architecture: A Quantitative Approach' ch.1-2","'Performance Analysis and Tuning on Modern CPU' — Lempel (free PDF)"] },
+      { w:14, title:"Distributed Systems Fundamentals", tag:"Distributed",
+        topics:["Why distributed systems: scale, fault tolerance","Fallacies of distributed computing","CAP theorem and trade-offs","Replication: leader-follower, multi-leader","Consensus: Raft algorithm (conceptual)","Clocks: Lamport timestamps, vector clocks"],
+        tasks:["Implement a simple key-value store with replication in Python","Simulate a network partition and see what breaks","Draw sequence diagrams for Raft leader election"],
         project: null,
-        resources: ["'Designing Data-Intensive Applications' — Kleppmann (entire book)", "Martin Kleppmann: Distributed Systems lectures (YouTube)", "Raft paper — raft.github.io"] },
-      { w: 15, title: "Compilers & Language Runtimes", tag: "Languages",
-        topics: ["Compiler pipeline: lexer → parser → AST → IR → code gen", "Interpreters vs compilers vs JIT", "Garbage collection: mark-sweep, generational, reference counting", "CPython internals: GIL, bytecode", "LLVM as a backend", "Language design trade-offs"],
-        tasks: ["Write a lexer for a tiny expression language in Python", "Build a recursive descent parser for arithmetic", "Inspect Python bytecode with dis module"],
+        resources:["'Designing Data-Intensive Applications' — Kleppmann (entire book)","Martin Kleppmann: Distributed Systems lectures (YouTube)","Raft paper — raft.github.io"] },
+      { w:15, title:"Compilers & Language Runtimes", tag:"Languages",
+        topics:["Compiler pipeline: lexer → parser → AST → IR → code gen","Interpreters vs compilers vs JIT","Garbage collection: mark-sweep, generational, reference counting","CPython internals: GIL, bytecode","LLVM as a backend","Language design trade-offs"],
+        tasks:["Write a lexer for a tiny expression language in Python","Build a recursive descent parser for arithmetic","Inspect Python bytecode with dis module"],
         project: null,
-        resources: ["'Crafting Interpreters' — Robert Nystrom (free online)", "CPython internals blog — realpython.com", "'Engineering a Compiler' — Cooper & Torczon ch.1-2"] },
-      { w: 16, title: "Security at the Systems Level", tag: "Security",
-        topics: ["Stack-based buffer overflows: the classic exploit", "Return-oriented programming (ROP) concept", "Mitigations: ASLR, stack canaries, NX bit", "Format string vulnerabilities", "Privilege escalation in OS context", "Secure coding practices in C"],
-        tasks: ["Exploit a toy buffer overflow in a VM (intentionally vulnerable)", "Apply mitigations and verify the exploit fails", "Read one CVE write-up and trace it to the root cause in code"],
+        resources:["'Crafting Interpreters' — Robert Nystrom (free online)","CPython internals blog — realpython.com","'Engineering a Compiler' — Cooper & Torczon ch.1-2"] },
+      { w:16, title:"Security at the Systems Level", tag:"Security",
+        topics:["Stack-based buffer overflows: the classic exploit","Return-oriented programming (ROP) concept","Mitigations: ASLR, stack canaries, NX bit","Format string vulnerabilities","Privilege escalation in OS context","Secure coding practices in C"],
+        tasks:["Exploit a toy buffer overflow in a VM (intentionally vulnerable)","Apply mitigations and verify the exploit fails","Read one CVE write-up and trace it to the root cause in code"],
         project: null,
-        resources: ["'Hacking: The Art of Exploitation' — Erickson", "pwn.college (structured wargames)", "OWASP: Security cheat sheets"] },
-      { w: 17, title: "System Design & Architecture", tag: "Design",
-        topics: ["Design principles: SOLID, DRY, YAGNI — in a systems context", "Microservices vs monolith at the systems level", "Event-driven architecture", "CQRS and event sourcing", "Database internals: B-trees, LSM trees", "Storage engines: InnoDB, RocksDB concepts"],
-        tasks: ["Design a database storage engine on paper", "Draw the architecture of PostgreSQL's storage layer", "Explain to yourself why B-trees are used in databases"],
+        resources:["'Hacking: The Art of Exploitation' — Erickson","pwn.college (structured wargames)","OWASP: Security cheat sheets"] },
+      { w:17, title:"System Design & Architecture", tag:"Design",
+        topics:["Design principles: SOLID, DRY, YAGNI — in a systems context","Microservices vs monolith at the systems level","Event-driven architecture","CQRS and event sourcing","Database internals: B-trees, LSM trees","Storage engines: InnoDB, RocksDB concepts"],
+        tasks:["Design a database storage engine on paper","Draw the architecture of PostgreSQL's storage layer","Explain to yourself why B-trees are used in databases"],
         project: null,
-        resources: ["'Database Internals' — Petrov (ch.1-4)", "CMU 15-445 (Database Systems — Andy Pavlo lectures free)", "'Readings in Database Systems' — Hellerstein (the red book)"] },
-      { w: 18, title: "Capstone: Build a Mini OS / Systems Tool", tag: "Project",
-        topics: ["Bringing it all together", "Documentation and code quality for systems code", "Performance benchmarking methodology"],
-        tasks: ["Final polish and documentation", "Benchmark your project under different loads", "Write a post-mortem on design decisions"],
+        resources:["'Database Internals' — Petrov (ch.1-4)","CMU 15-445 (Database Systems — Andy Pavlo lectures free)","'Readings in Database Systems' — Hellerstein (the red book)"] },
+      { w:18, title:"Capstone: Build a Mini OS / Systems Tool", tag:"Project",
+        topics:["Bringing it all together","Documentation and code quality for systems code","Performance benchmarking methodology"],
+        tasks:["Final polish and documentation","Benchmark your project under different loads","Write a post-mortem on design decisions"],
         project: "Final Project — Build one of: (a) A complete Unix shell with job control, pipes, redirects, and signal handling; (b) A database storage engine with a B-tree index and WAL; (c) An HTTP/1.1 server from raw sockets handling concurrent connections with a thread pool. Must include benchmarks and a technical design document.",
-        resources: ["Your cumulative notes", "CSAPP full read for reference", "The Linux Kernel source (github.com/torvalds/linux)"] }
+        resources:["Your cumulative notes","CSAPP full read for reference","The Linux Kernel source (github.com/torvalds/linux)"] },
     ],
     outcome: "You understand how computers work from gates to operating systems to distributed systems. You can write systems code in C, reason about performance, security, concurrency, and design robust architectures. You're prepared for systems engineering roles or OS/compilers coursework.",
-    mistakes: ["Jumping to high-level abstractions before understanding what they abstract over", "Skipping assembly — even a week of it changes how you think forever", "Ignoring Valgrind / sanitizers — memory bugs are silent killers", "Treating concurrency casually — race conditions are non-deterministic and evil", "Never measuring performance — intuition is often wrong", "Not reading primary sources: manpages, RFCs, and source code are the ground truth"]
+    mistakes: ["Jumping to high-level abstractions before understanding what they abstract over","Skipping assembly — even a week of it changes how you think forever","Ignoring Valgrind / sanitizers — memory bugs are silent killers","Treating concurrency casually — race conditions are non-deterministic and evil","Never measuring performance — intuition is often wrong","Not reading primary sources: manpages, RFCs, and source code are the ground truth"]
   },
 
   aiml: {
@@ -1023,105 +895,105 @@ const DOMAINS = {
     color: "#BA7517", bg: "#FAEEDA", darkColor: "#EF9F27",
     prereq: "Python to OOP. Mandatory: basic statistics (mean, variance, probability). Linear algebra basics (vectors, matrices, dot product) and calculus (derivatives, chain rule) are needed — Week 1 covers the essentials.",
     phases: [
-      { name: "Math & Foundations", weeks: [1, 2, 3, 4] },
-      { name: "Classical ML", weeks: [5, 6, 7, 8, 9] },
-      { name: "Deep Learning", weeks: [10, 11, 12, 13, 14] },
-      { name: "Applied & Advanced", weeks: [15, 16, 17, 18] }
+      { name: "Math & Foundations", weeks: [1,2,3,4] },
+      { name: "Classical ML", weeks: [5,6,7,8,9] },
+      { name: "Deep Learning", weeks: [10,11,12,13,14] },
+      { name: "Applied & Advanced", weeks: [15,16,17,18] },
     ],
     weeks: [
-      { w: 1, title: "Linear Algebra for ML", tag: "Math",
-        topics: ["Vectors, matrices, tensors — geometric intuition", "Matrix multiplication: when and why it works", "Dot product: similarity and projection", "Eigenvalues/eigenvectors — what they represent", "Singular Value Decomposition (SVD) concept", "Norms: L1, L2, Frobenius"],
-        tasks: ["Implement matrix multiplication from scratch in Python (no numpy)", "Visualize eigenvectors of 2×2 matrices using matplotlib", "Verify all numpy linear algebra ops by hand first"],
+      { w:1, title:"Linear Algebra for ML", tag:"Math",
+        topics:["Vectors, matrices, tensors — geometric intuition","Matrix multiplication: when and why it works","Dot product: similarity and projection","Eigenvalues/eigenvectors — what they represent","Singular Value Decomposition (SVD) concept","Norms: L1, L2, Frobenius"],
+        tasks:["Implement matrix multiplication from scratch in Python (no numpy)","Visualize eigenvectors of 2×2 matrices using matplotlib","Verify all numpy linear algebra ops by hand first"],
         project: null,
-        resources: ["3Blue1Brown: Essence of Linear Algebra (YouTube — mandatory)", "'Mathematics for Machine Learning' — Deisenroth (free PDF) ch.2-3", "fast.ai: Matrix Multiplication from scratch notebook"] },
-      { w: 2, title: "Calculus & Optimization", tag: "Math",
-        topics: ["Derivatives: rate of change intuition", "Chain rule — the backbone of backprop", "Partial derivatives and gradients", "Gradient descent: the optimizer of ML", "Learning rate: too high, too low", "Convex vs non-convex loss landscapes"],
-        tasks: ["Implement gradient descent on y = x² by hand", "Visualize a 3D loss surface with matplotlib", "Derive the gradient of MSE loss manually"],
+        resources:["3Blue1Brown: Essence of Linear Algebra (YouTube — mandatory)","'Mathematics for Machine Learning' — Deisenroth (free PDF) ch.2-3","fast.ai: Matrix Multiplication from scratch notebook"] },
+      { w:2, title:"Calculus & Optimization", tag:"Math",
+        topics:["Derivatives: rate of change intuition","Chain rule — the backbone of backprop","Partial derivatives and gradients","Gradient descent: the optimizer of ML","Learning rate: too high, too low","Convex vs non-convex loss landscapes"],
+        tasks:["Implement gradient descent on y = x² by hand","Visualize a 3D loss surface with matplotlib","Derive the gradient of MSE loss manually"],
         project: null,
-        resources: ["3Blue1Brown: Calculus series (YouTube)", "Khan Academy: Multivariable calculus (partial derivatives)", "'Mathematics for Machine Learning' ch.5"] },
-      { w: 3, title: "Probability & Statistics for ML", tag: "Math",
-        topics: ["Probability axioms, conditional probability, Bayes' theorem", "Distributions: Gaussian, Bernoulli, Categorical", "Maximum Likelihood Estimation (MLE)", "Bias-variance tradeoff — the fundamental tension in ML", "Cross-entropy loss — why it comes from MLE", "Statistical testing: p-values, confidence intervals (conceptual)"],
-        tasks: ["Implement MLE for a Gaussian distribution from scratch", "Visualize bias-variance tradeoff experimentally with sklearn", "Prove cross-entropy connects to log likelihood"],
+        resources:["3Blue1Brown: Calculus series (YouTube)","Khan Academy: Multivariable calculus (partial derivatives)","'Mathematics for Machine Learning' ch.5"] },
+      { w:3, title:"Probability & Statistics for ML", tag:"Math",
+        topics:["Probability axioms, conditional probability, Bayes' theorem","Distributions: Gaussian, Bernoulli, Categorical","Maximum Likelihood Estimation (MLE)","Bias-variance tradeoff — the fundamental tension in ML","Cross-entropy loss — why it comes from MLE","Statistical testing: p-values, confidence intervals (conceptual)"],
+        tasks:["Implement MLE for a Gaussian distribution from scratch","Visualize bias-variance tradeoff experimentally with sklearn","Prove cross-entropy connects to log likelihood"],
         project: null,
-        resources: ["StatQuest with Josh Starmer (YouTube) — core stats videos", "'Probability Theory: The Logic of Science' — Jaynes (first 3 chapters)", "'Pattern Recognition and Machine Learning' — Bishop ch.1-2"] },
-      { w: 4, title: "Data & Exploratory Analysis", tag: "Practice",
-        topics: ["Data types: numerical, categorical, ordinal, text", "Pandas for data manipulation", "Data cleaning: missing values, outliers, duplicates", "EDA: distributions, correlations, box plots", "Feature engineering: creating informative signals", "Train/validation/test split — why and how"],
-        tasks: ["Do a full EDA on the Titanic dataset", "Engineer 5 new features and justify each one", "Write a data quality report with visualizations"],
+        resources:["StatQuest with Josh Starmer (YouTube) — core stats videos","'Probability Theory: The Logic of Science' — Jaynes (first 3 chapters)","'Pattern Recognition and Machine Learning' — Bishop ch.1-2"] },
+      { w:4, title:"Data & Exploratory Analysis", tag:"Practice",
+        topics:["Data types: numerical, categorical, ordinal, text","Pandas for data manipulation","Data cleaning: missing values, outliers, duplicates","EDA: distributions, correlations, box plots","Feature engineering: creating informative signals","Train/validation/test split — why and how"],
+        tasks:["Do a full EDA on the Titanic dataset","Engineer 5 new features and justify each one","Write a data quality report with visualizations"],
         project: "Mini Project 1 — Full EDA on a Kaggle dataset of your choice: 10+ visualizations, feature engineering, and a written report on what you found. No modeling yet.",
-        resources: ["'Python for Data Analysis' — McKinney (Pandas creator)", "Kaggle: EDA guide", "Towards Data Science: EDA tutorials"] },
-      { w: 5, title: "Supervised Learning: Regression", tag: "Classical ML",
-        topics: ["Linear regression: the math derivation from scratch", "Polynomial regression and overfitting", "Regularization: Ridge (L2), Lasso (L1), Elastic Net", "Evaluation metrics: MAE, MSE, RMSE, R²", "Feature scaling: why it matters for gradient descent", "Assumptions of linear regression"],
-        tasks: ["Implement linear regression with gradient descent from scratch (no sklearn)", "Compare regularization effects on a small dataset", "Predict housing prices on the Boston dataset"],
+        resources:["'Python for Data Analysis' — McKinney (Pandas creator)","Kaggle: EDA guide","Towards Data Science: EDA tutorials"] },
+      { w:5, title:"Supervised Learning: Regression", tag:"Classical ML",
+        topics:["Linear regression: the math derivation from scratch","Polynomial regression and overfitting","Regularization: Ridge (L2), Lasso (L1), Elastic Net","Evaluation metrics: MAE, MSE, RMSE, R²","Feature scaling: why it matters for gradient descent","Assumptions of linear regression"],
+        tasks:["Implement linear regression with gradient descent from scratch (no sklearn)","Compare regularization effects on a small dataset","Predict housing prices on the Boston dataset"],
         project: null,
-        resources: ["Andrew Ng: ML Specialization Week 1-2 (Coursera)", "'Hands-On Machine Learning' — Géron ch.4", "StatQuest: Linear Regression (YouTube)"] },
-      { w: 6, title: "Supervised Learning: Classification", tag: "Classical ML",
-        topics: ["Logistic regression — not actually regression", "Sigmoid and softmax functions", "Decision boundary intuition", "Evaluation: accuracy, precision, recall, F1, AUC-ROC", "Multi-class classification strategies", "Imbalanced datasets: SMOTE, class weights"],
-        tasks: ["Implement logistic regression from scratch", "Build a spam classifier using email features", "Plot and interpret a confusion matrix and ROC curve"],
+        resources:["Andrew Ng: ML Specialization Week 1-2 (Coursera)","'Hands-On Machine Learning' — Géron ch.4","StatQuest: Linear Regression (YouTube)"] },
+      { w:6, title:"Supervised Learning: Classification", tag:"Classical ML",
+        topics:["Logistic regression — not actually regression","Sigmoid and softmax functions","Decision boundary intuition","Evaluation: accuracy, precision, recall, F1, AUC-ROC","Multi-class classification strategies","Imbalanced datasets: SMOTE, class weights"],
+        tasks:["Implement logistic regression from scratch","Build a spam classifier using email features","Plot and interpret a confusion matrix and ROC curve"],
         project: null,
-        resources: ["Andrew Ng: ML Specialization Week 3", "StatQuest: Logistic Regression (YouTube)", "'Hands-On ML' — Géron ch.3"] },
-      { w: 7, title: "Tree-Based Methods & Ensembles", tag: "Classical ML",
-        topics: ["Decision trees: information gain, Gini impurity, pruning", "Random forests: bagging and feature randomness", "Gradient boosting: additive model, shrinkage", "XGBoost / LightGBM — why they win Kaggle", "Feature importance and model interpretability", "Hyperparameter tuning: grid search, random search, Optuna"],
-        tasks: ["Build a decision tree from scratch (pure Python)", "Compare RF vs XGBoost on a classification task", "Use SHAP values to explain your model's predictions"],
+        resources:["Andrew Ng: ML Specialization Week 3","StatQuest: Logistic Regression (YouTube)","'Hands-On ML' — Géron ch.3"] },
+      { w:7, title:"Tree-Based Methods & Ensembles", tag:"Classical ML",
+        topics:["Decision trees: information gain, Gini impurity, pruning","Random forests: bagging and feature randomness","Gradient boosting: additive model, shrinkage","XGBoost / LightGBM — why they win Kaggle","Feature importance and model interpretability","Hyperparameter tuning: grid search, random search, Optuna"],
+        tasks:["Build a decision tree from scratch (pure Python)","Compare RF vs XGBoost on a classification task","Use SHAP values to explain your model's predictions"],
         project: "Major Project 1 — Kaggle Tabular Competition: full pipeline from EDA → feature engineering → multiple model experiments → ensembling → leaderboard submission. Write a clear retrospective on every design decision.",
-        resources: ["StatQuest: Random Forests, Gradient Boosting (YouTube)", "XGBoost paper (read the intro + algorithm section)", "'Hands-On ML' — Géron ch.6-7"] },
-      { w: 8, title: "Unsupervised Learning & Dimensionality Reduction", tag: "Classical ML",
-        topics: ["K-means: algorithm, convergence, initialization (k-means++)", "DBSCAN and hierarchical clustering", "Gaussian Mixture Models (concept)", "PCA: the math derivation from SVD", "t-SNE and UMAP for visualization", "When to use unsupervised methods"],
-        tasks: ["Implement k-means from scratch", "Use t-SNE to visualize MNIST embeddings", "Apply PCA before training a classifier — measure impact"],
+        resources:["StatQuest: Random Forests, Gradient Boosting (YouTube)","XGBoost paper (read the intro + algorithm section)","'Hands-On ML' — Géron ch.6-7"] },
+      { w:8, title:"Unsupervised Learning & Dimensionality Reduction", tag:"Classical ML",
+        topics:["K-means: algorithm, convergence, initialization (k-means++)","DBSCAN and hierarchical clustering","Gaussian Mixture Models (concept)","PCA: the math derivation from SVD","t-SNE and UMAP for visualization","When to use unsupervised methods"],
+        tasks:["Implement k-means from scratch","Use t-SNE to visualize MNIST embeddings","Apply PCA before training a classifier — measure impact"],
         project: null,
-        resources: ["StatQuest: PCA, clustering (YouTube)", "sklearn documentation", "'Hands-On ML' — Géron ch.8-9"] },
-      { w: 9, title: "Model Selection, Validation & Pipelines", tag: "ML Engineering",
-        topics: ["Cross-validation: k-fold, stratified, time-series aware", "The test set: treat it like a secret", "Data leakage: how it happens silently", "sklearn Pipelines: preprocessing + model in one object", "Hyperparameter optimization: Optuna", "MLflow for experiment tracking"],
-        tasks: ["Refactor any previous project to use sklearn Pipelines", "Set up MLflow locally and log 10 experiments", "Find a data leakage bug in a deliberately flawed notebook"],
+        resources:["StatQuest: PCA, clustering (YouTube)","sklearn documentation","'Hands-On ML' — Géron ch.8-9"] },
+      { w:9, title:"Model Selection, Validation & Pipelines", tag:"ML Engineering",
+        topics:["Cross-validation: k-fold, stratified, time-series aware","The test set: treat it like a secret","Data leakage: how it happens silently","sklearn Pipelines: preprocessing + model in one object","Hyperparameter optimization: Optuna","MLflow for experiment tracking"],
+        tasks:["Refactor any previous project to use sklearn Pipelines","Set up MLflow locally and log 10 experiments","Find a data leakage bug in a deliberately flawed notebook"],
         project: null,
-        resources: ["sklearn Pipeline documentation", "MLflow getting started", "'Hands-On ML' — Géron ch.2 (end-to-end project)"] },
-      { w: 10, title: "Neural Networks: From Scratch", tag: "Deep Learning",
-        topics: ["Biological inspiration vs mathematical reality", "Perceptron to multi-layer network", "Forward pass: weighted sum + activation", "Activation functions: ReLU, sigmoid, tanh — and why ReLU wins", "Backpropagation: the chain rule applied systematically", "Loss landscapes and local minima"],
-        tasks: ["Implement a 2-layer neural network from scratch in numpy", "Train it on the XOR problem", "Visualize the decision boundary evolution during training"],
+        resources:["sklearn Pipeline documentation","MLflow getting started","'Hands-On ML' — Géron ch.2 (end-to-end project)"] },
+      { w:10, title:"Neural Networks: From Scratch", tag:"Deep Learning",
+        topics:["Biological inspiration vs mathematical reality","Perceptron to multi-layer network","Forward pass: weighted sum + activation","Activation functions: ReLU, sigmoid, tanh — and why ReLU wins","Backpropagation: the chain rule applied systematically","Loss landscapes and local minima"],
+        tasks:["Implement a 2-layer neural network from scratch in numpy","Train it on the XOR problem","Visualize the decision boundary evolution during training"],
         project: null,
-        resources: ["3Blue1Brown: Neural Networks series (YouTube — mandatory)", "Michael Nielsen: 'Neural Networks and Deep Learning' (free online)", "Andrej Karpathy: micrograd (implement alongside it)"] },
-      { w: 11, title: "PyTorch Fundamentals", tag: "Deep Learning",
-        topics: ["Tensors vs numpy arrays: the autograd graph", "Autograd: how PyTorch computes gradients automatically", "nn.Module and building custom layers", "DataLoader and Dataset for mini-batch training", "Optimizers: SGD, Adam, AdamW", "Training loop: forward → loss → backward → step"],
-        tasks: ["Reimplement your Week 10 network in PyTorch", "Train on MNIST — achieve ≥98% accuracy", "Profile training time and identify bottlenecks"],
+        resources:["3Blue1Brown: Neural Networks series (YouTube — mandatory)","Michael Nielsen: 'Neural Networks and Deep Learning' (free online)","Andrej Karpathy: micrograd (implement alongside it)"] },
+      { w:11, title:"PyTorch Fundamentals", tag:"Deep Learning",
+        topics:["Tensors vs numpy arrays: the autograd graph","Autograd: how PyTorch computes gradients automatically","nn.Module and building custom layers","DataLoader and Dataset for mini-batch training","Optimizers: SGD, Adam, AdamW","Training loop: forward → loss → backward → step"],
+        tasks:["Reimplement your Week 10 network in PyTorch","Train on MNIST — achieve ≥98% accuracy","Profile training time and identify bottlenecks"],
         project: null,
-        resources: ["PyTorch official tutorial", "Andrej Karpathy: nn zero to hero series (YouTube)", "'Deep Learning with PyTorch' — Stevens (ch.1-5, free online)"] },
-      { w: 12, title: "Convolutional Neural Networks", tag: "Deep Learning",
-        topics: ["Why convolutions for images: translation equivariance", "Convolution operation: kernel, stride, padding", "Pooling layers: max pool, avg pool", "Classic architectures: LeNet → AlexNet → VGG → ResNet", "Residual connections: why they work", "Transfer learning: ImageNet weights for your task"],
-        tasks: ["Build a CNN for CIFAR-10 classification", "Fine-tune ResNet-18 on a custom image dataset", "Visualize learned filters in the first layer"],
+        resources:["PyTorch official tutorial","Andrej Karpathy: nn zero to hero series (YouTube)","'Deep Learning with PyTorch' — Stevens (ch.1-5, free online)"] },
+      { w:12, title:"Convolutional Neural Networks", tag:"Deep Learning",
+        topics:["Why convolutions for images: translation equivariance","Convolution operation: kernel, stride, padding","Pooling layers: max pool, avg pool","Classic architectures: LeNet → AlexNet → VGG → ResNet","Residual connections: why they work","Transfer learning: ImageNet weights for your task"],
+        tasks:["Build a CNN for CIFAR-10 classification","Fine-tune ResNet-18 on a custom image dataset","Visualize learned filters in the first layer"],
         project: null,
-        resources: ["CS231n Stanford: CNNs (lecture notes free)", "fast.ai: Practical Deep Learning (lesson 1-3)", "PyTorch torchvision docs"] },
-      { w: 13, title: "Sequence Models & Transformers", tag: "Deep Learning",
-        topics: ["Why sequences are hard: variable length, dependencies", "RNNs: vanishing gradient problem", "LSTMs and GRUs: gates and memory", "Attention mechanism: the key-query-value intuition", "Self-attention and multi-head attention", "Transformer architecture: encoder, decoder", "Positional encoding"],
-        tasks: ["Implement self-attention from scratch in PyTorch", "Train a character-level language model (Karpathy's tutorial)", "Visualize attention weights on a sentence"],
+        resources:["CS231n Stanford: CNNs (lecture notes free)","fast.ai: Practical Deep Learning (lesson 1-3)","PyTorch torchvision docs"] },
+      { w:13, title:"Sequence Models & Transformers", tag:"Deep Learning",
+        topics:["Why sequences are hard: variable length, dependencies","RNNs: vanishing gradient problem","LSTMs and GRUs: gates and memory","Attention mechanism: the key-query-value intuition","Self-attention and multi-head attention","Transformer architecture: encoder, decoder","Positional encoding"],
+        tasks:["Implement self-attention from scratch in PyTorch","Train a character-level language model (Karpathy's tutorial)","Visualize attention weights on a sentence"],
         project: null,
-        resources: ["Andrej Karpathy: 'Let's build GPT from scratch' (YouTube — mandatory)", "'Attention Is All You Need' paper (read all sections)", "The Illustrated Transformer — Jay Alammar blog"] },
-      { w: 14, title: "Modern NLP with Transformers", tag: "Applied DL",
-        topics: ["Hugging Face ecosystem: models, tokenizers, datasets", "Fine-tuning BERT/RoBERTa for classification", "Prompt engineering vs fine-tuning — when to use which", "LoRA and parameter-efficient fine-tuning", "Evaluation: BLEU, ROUGE, perplexity", "Responsible AI: bias in language models"],
-        tasks: ["Fine-tune DistilBERT on a sentiment analysis dataset", "Run LoRA fine-tuning on a small LLM", "Measure and document bias in a pre-trained model"],
+        resources:["Andrej Karpathy: 'Let's build GPT from scratch' (YouTube — mandatory)","'Attention Is All You Need' paper (read all sections)","The Illustrated Transformer — Jay Alammar blog"] },
+      { w:14, title:"Modern NLP with Transformers", tag:"Applied DL",
+        topics:["Hugging Face ecosystem: models, tokenizers, datasets","Fine-tuning BERT/RoBERTa for classification","Prompt engineering vs fine-tuning — when to use which","LoRA and parameter-efficient fine-tuning","Evaluation: BLEU, ROUGE, perplexity","Responsible AI: bias in language models"],
+        tasks:["Fine-tune DistilBERT on a sentiment analysis dataset","Run LoRA fine-tuning on a small LLM","Measure and document bias in a pre-trained model"],
         project: "Major Project 2 — Build an end-to-end NLP pipeline: scrape or download a domain-specific dataset, fine-tune a transformer model, build a simple evaluation harness, and write a model card documenting performance and limitations.",
-        resources: ["Hugging Face NLP course (huggingface.co/learn) — free", "'Natural Language Processing with Transformers' — Tunstall (free online)", "LoRA paper"] },
-      { w: 15, title: "MLOps: From Notebook to Production", tag: "Engineering",
-        topics: ["The gap between research and production", "Data versioning: DVC", "Model versioning and MLflow Model Registry", "Serving models: FastAPI + torchserve/triton", "Monitoring model drift", "A/B testing for ML models", "Feature stores (concept)"],
-        tasks: ["Build a model serving API with FastAPI", "Set up DVC for a dataset", "Monitor predictions for distribution shift with Evidently AI"],
+        resources:["Hugging Face NLP course (huggingface.co/learn) — free","'Natural Language Processing with Transformers' — Tunstall (free online)","LoRA paper"] },
+      { w:15, title:"MLOps: From Notebook to Production", tag:"Engineering",
+        topics:["The gap between research and production","Data versioning: DVC","Model versioning and MLflow Model Registry","Serving models: FastAPI + torchserve/triton","Monitoring model drift","A/B testing for ML models","Feature stores (concept)"],
+        tasks:["Build a model serving API with FastAPI","Set up DVC for a dataset","Monitor predictions for distribution shift with Evidently AI"],
         project: null,
-        resources: ["'Designing Machine Learning Systems' — Huyen (first 4 chapters)", "MLflow model serving docs", "Evidently AI documentation"] },
-      { w: 16, title: "Generative Models", tag: "Advanced",
-        topics: ["Autoencoders and variational autoencoders (VAE)", "GAN: generator vs discriminator, training instability", "Diffusion models: the denoising process", "CLIP and vision-language models", "Stable Diffusion architecture overview", "Ethics of generative AI"],
-        tasks: ["Train a VAE on MNIST", "Study Stable Diffusion's architecture in detail", "Generate images with a diffusion model and analyze failure modes"],
+        resources:["'Designing Machine Learning Systems' — Huyen (first 4 chapters)","MLflow model serving docs","Evidently AI documentation"] },
+      { w:16, title:"Generative Models", tag:"Advanced",
+        topics:["Autoencoders and variational autoencoders (VAE)","GAN: generator vs discriminator, training instability","Diffusion models: the denoising process","CLIP and vision-language models","Stable Diffusion architecture overview","Ethics of generative AI"],
+        tasks:["Train a VAE on MNIST","Study Stable Diffusion's architecture in detail","Generate images with a diffusion model and analyze failure modes"],
         project: null,
-        resources: ["'Understanding Deep Learning' — Prince (free online, ch.14-17)", "Lilian Weng: generative models blog (lilianweng.github.io)", "DALL-E and Stable Diffusion papers"] },
-      { w: 17, title: "Reinforcement Learning Fundamentals", tag: "Advanced",
-        topics: ["MDP: states, actions, rewards, transitions", "Bellman equations", "Q-learning and value iteration", "Policy gradient methods: REINFORCE", "Deep Q-Networks (DQN)", "RLHF: how it applies to LLMs"],
-        tasks: ["Implement Q-learning for FrozenLake (OpenAI Gym)", "Train a DQN agent on CartPole", "Read the InstructGPT paper (focus on RLHF section)"],
+        resources:["'Understanding Deep Learning' — Prince (free online, ch.14-17)","Lilian Weng: generative models blog (lilianweng.github.io)","DALL-E and Stable Diffusion papers"] },
+      { w:17, title:"Reinforcement Learning Fundamentals", tag:"Advanced",
+        topics:["MDP: states, actions, rewards, transitions","Bellman equations","Q-learning and value iteration","Policy gradient methods: REINFORCE","Deep Q-Networks (DQN)","RLHF: how it applies to LLMs"],
+        tasks:["Implement Q-learning for FrozenLake (OpenAI Gym)","Train a DQN agent on CartPole","Read the InstructGPT paper (focus on RLHF section)"],
         project: null,
-        resources: ["Sutton & Barto: 'Reinforcement Learning' ch.1-6 (free PDF)", "David Silver: RL lectures (YouTube)", "Spinning Up in Deep RL — OpenAI"] },
-      { w: 18, title: "Capstone: End-to-End ML System", tag: "Project",
-        topics: ["Research → prototype → production pipeline", "Model evaluation beyond accuracy", "Documentation and reproducibility", "Portfolio presentation for ML roles"],
-        tasks: ["Deploy your final project publicly", "Write a model card and a technical blog post", "Prepare to explain every design decision in depth"],
+        resources:["Sutton & Barto: 'Reinforcement Learning' ch.1-6 (free PDF)","David Silver: RL lectures (YouTube)","Spinning Up in Deep RL — OpenAI"] },
+      { w:18, title:"Capstone: End-to-End ML System", tag:"Project",
+        topics:["Research → prototype → production pipeline","Model evaluation beyond accuracy","Documentation and reproducibility","Portfolio presentation for ML roles"],
+        tasks:["Deploy your final project publicly","Write a model card and a technical blog post","Prepare to explain every design decision in depth"],
         project: "Final Project — Build a complete ML product: (a) Choose a real problem (medical, finance, NLP, vision, etc.), (b) Gather and version your data with DVC, (c) Train multiple model families, log all experiments with MLflow, (d) Deploy the best model as a REST API with monitoring, (e) Write a full technical report covering data, model choice, evaluation, limitations, and ethical considerations. Publicly accessible demo required.",
-        resources: ["Papers with Code (paperswithcode.com) for benchmarks", "'Machine Learning Engineering' — Burkov (free PDF)", "Your cumulative notebooks + papers read"] }
+        resources:["Papers with Code (paperswithcode.com) for benchmarks","'Machine Learning Engineering' — Burkov (free PDF)","Your cumulative notebooks + papers read"] },
     ],
     outcome: "You understand ML from mathematical first principles through deep learning and modern LLMs. You can train, evaluate, debug, and deploy ML models. You have a portfolio of projects including Kaggle competition entries and a deployed ML product.",
-    mistakes: ["Using sklearn before implementing algorithms from scratch at least once", "Ignoring the math — you WILL hit a wall without it", "Treating test set evaluation as iteration — it's sacred", "Optimizing for accuracy alone — real ML has many objectives", "Skipping MLOps — a model that isn't deployed doesn't exist", "Not reading papers — blog posts summarize, papers are ground truth", "Overfit intuitions from tabular data to images/text — they don't transfer cleanly"]
+    mistakes: ["Using sklearn before implementing algorithms from scratch at least once","Ignoring the math — you WILL hit a wall without it","Treating test set evaluation as iteration — it's sacred","Optimizing for accuracy alone — real ML has many objectives","Skipping MLOps — a model that isn't deployed doesn't exist","Not reading papers — blog posts summarize, papers are ground truth","Overfit intuitions from tabular data to images/text — they don't transfer cleanly"]
   }
 };
 
@@ -1142,300 +1014,249 @@ const PHASE_COLORS = {
   "Architecture & Design": { badge: "#FAEEDA", text: "#BA7517" },
   "Math & Foundations": { badge: "#EAF3DE", text: "#3B6D11" },
   "Classical ML": { badge: "#FAEEDA", text: "#BA7517" },
-  "Deep Learning": { badge: "#EEEDFE", text: "#534AB7" }
+  "Deep Learning": { badge: "#EEEDFE", text: "#534AB7" },
 };
 
-const FALLBACK_PHASE_COLOR = { badge: "#F1EFE8", text: "#5F5E5A" };
-
-const state = {
-  currentDomain: "backend",
-  openWeeks: new Set()
+/** One curated Udemy course per roadmap tab (keys match DOMAINS). */
+const DOMAIN_UDEMY_COURSES = {
+  backend: {
+    title: 'REST APIs with Flask and Python',
+    meta: 'Jose Salvatierra · ~4.5★ · Flask, SQLAlchemy, JWT, Docker, Alembic',
+    lead: 'Video companion for the HTTP → Flask → REST → database → auth arc of this track.',
+    body: 'You build production-style APIs with SQLAlchemy, JWT, migrations, and Docker—close to the To-Do API, Blog API, and deployment weeks here.',
+    benefits: [
+      'REST resources, JSON, and status codes in Flask',
+      'Auth and database layers that mirror mid-track milestones',
+      'Docker and deploy topics that align with your DevOps phase',
+    ],
+    url: 'https://www.udemy.com/course/rest-api-flask-and-python/',
+  },
+  networking: {
+    title: 'The Complete Networking Fundamentals Course. Your CCNA start',
+    meta: 'David Bombal · TCP/IP, subnetting, switching, routing, VLANs',
+    lead: 'Structured coverage of the same layers and devices you study with Wireshark and labs.',
+    body: 'Pairs with the OSI/TCP, IP addressing, Ethernet, routing, and security-heavy weeks—use it when you want lectures on top of the reading list.',
+    benefits: [
+      'Addressing, subnetting, and how traffic moves in L2/L3',
+      'Switches, VLANs, and basic enterprise-style topology',
+      'Complements Packet Tracer / GNS3 work from the weekly tasks',
+    ],
+    url: 'https://www.udemy.com/course/complete-networking-fundamentals-course-ccna-start/',
+  },
+  frontend: {
+    title: 'The Complete Web Development Bootcamp',
+    meta: 'Dr. Angela Yu · HTML, CSS, JavaScript, React, Node, databases',
+    lead: 'Walkthrough for the browser stack while you follow the Frontend tab week by week.',
+    body: 'Project-heavy HTML/CSS/JS and React—useful alongside DOM, fetch, and React weeks before you lean on TypeScript and Next.js in the roadmap.',
+    benefits: [
+      'Layouts, responsive CSS, and component-style thinking',
+      'JavaScript and React patterns that match your mid-track projects',
+      'Extra reps for portfolio sites and API-backed front ends',
+    ],
+    url: 'https://www.udemy.com/course/the-complete-web-development-bootcamp/',
+  },
+  systems: {
+    title: 'C Programming For Beginners - Master the C Language',
+    meta: 'Jason Fedin · ~4.5★ · pointers, memory, control flow',
+    lead: 'Reinforces the C language skills this track expects before OS and concurrency get heavy.',
+    body: 'Deepens variables, pointers, arrays, and memory—foundation for your C projects, syscalls, and low-level debugging alongside CSAPP and OSTEP.',
+    benefits: [
+      'Pointers and memory model—core to systems programming here',
+      'Practice before allocators, shells, and syscall-heavy labs',
+      'Complements nand2tetris and kernel reading with hands-on coding',
+    ],
+    url: 'https://www.udemy.com/course/c-programming-for-beginners-/',
+  },
+  aiml: {
+    title: 'Machine Learning A-Z: AI, Python & R + ChatGPT Prize',
+    meta: 'Kirill Eremenko & Hadelin de Ponteves · Python or R · classical ML + intro DL',
+    lead: 'Broad ML survey you can align with your regression → trees → neural net weeks.',
+    body: 'Jump to sections that match the current phase; use the roadmap for math rigor and for PyTorch, transformers, and MLOps depth beyond the course.',
+    benefits: [
+      'Supervised learning, trees, and tuning with real datasets',
+      'Optional NLP and neural net sections when you hit those weeks',
+      'Good drill alongside sklearn and before you specialize in PyTorch',
+    ],
+    url: 'https://www.udemy.com/course/machinelearning/',
+  },
 };
 
-const tabsElement = document.getElementById("tabs");
-const contentElement = document.getElementById("content");
+let currentDomain = 'backend';
 
-// The roadmap content is static today, but escaping it keeps the template helpers safe
-// if the data ever moves to JSON or a CMS later on.
-function escapeHTML(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+/** Keeps roadmap copy safe if strings ever include `<` or `&`. */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-function slugify(value) {
-  return String(value)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function getProjectCount(weeks) {
-  return weeks.filter((week) => Boolean(week.project)).length;
-}
-
-function renderList(items) {
+function renderDomainCourseBlock(domainKey) {
+  const c = DOMAIN_UDEMY_COURSES[domainKey];
+  if (!c) return '';
+  const label = DOMAINS[domainKey].label;
+  const headingId = `domain-course-${domainKey}`;
   return `
-    <ul class="detail-list">
-      ${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}
-    </ul>
-  `;
-}
-
-function renderResources(items) {
-  return `
-    <div class="resource-list" aria-label="Recommended resources">
-      ${items.map((item) => `<span class="resource-chip">${escapeHTML(item)}</span>`).join("")}
-    </div>
-  `;
-}
-
-function renderWeekCard(week) {
-  const isOpen = state.openWeeks.has(week.w);
-  const hasProject = Boolean(week.project);
-  const buttonId = `${state.currentDomain}-week-${week.w}-button`;
-  const panelId = `${state.currentDomain}-week-${week.w}-panel`;
-
-  return `
-    <article class="week-card">
-      <h4 class="week-heading">
-        <button
-          class="week-toggle"
-          type="button"
-          id="${buttonId}"
-          aria-expanded="${isOpen}"
-          aria-controls="${panelId}"
-          data-week-toggle
-          data-week="${week.w}"
-        >
-          <span class="week-main">
-            <span class="week-badge">Week ${week.w}</span>
-            <span class="week-content">
-              <span class="week-title">${escapeHTML(week.title)}</span>
-              <span class="week-meta">
-                <span class="week-tag">${escapeHTML(week.tag)}</span>
-                ${hasProject ? '<span class="project-tag">Project milestone</span>' : ""}
-              </span>
-            </span>
-          </span>
-          <span class="week-chevron" aria-hidden="true">▾</span>
-        </button>
-      </h4>
-
-      <div
-        class="week-panel"
-        id="${panelId}"
-        role="region"
-        aria-labelledby="${buttonId}"
-        ${isOpen ? "" : "hidden"}
-      >
-        <div class="detail-grid">
-          <section class="detail-block" aria-labelledby="${buttonId}-topics">
-            <h5 class="detail-heading" id="${buttonId}-topics">Topics</h5>
-            ${renderList(week.topics)}
-          </section>
-
-          <section class="detail-block" aria-labelledby="${buttonId}-tasks">
-            <h5 class="detail-heading" id="${buttonId}-tasks">Practical tasks</h5>
-            ${renderList(week.tasks)}
-          </section>
-
-          <section class="detail-block" aria-labelledby="${buttonId}-resources">
-            <h5 class="detail-heading" id="${buttonId}-resources">Resources</h5>
-            ${renderResources(week.resources)}
-          </section>
-
-          ${
-            hasProject
-              ? `<div class="project-callout"><strong>Project:</strong> ${escapeHTML(week.project)}</div>`
-              : ""
-          }
-        </div>
-      </div>
+  <section class="course-section tab-course" aria-labelledby="${headingId}">
+    <h2 id="${headingId}" class="course-section__title">Recommended Udemy course · ${escapeHtml(label)}</h2>
+    <p class="course-lead">${escapeHtml(c.lead)}</p>
+    <article class="course-card">
+      <h3 class="course-card__name">${escapeHtml(c.title)}</h3>
+      <p class="course-meta">${escapeHtml(c.meta)}</p>
+      <p>${escapeHtml(c.body)}</p>
+      <ul class="course-benefits">
+        ${c.benefits.map((b) => `<li>${escapeHtml(b)}</li>`).join('')}
+      </ul>
+      <a class="course-cta" href="${c.url}" rel="noopener noreferrer" target="_blank">View course on Udemy</a>
     </article>
-  `;
-}
-
-function renderPhaseSection(phase, domain) {
-  const phaseColor = PHASE_COLORS[phase.name] || FALLBACK_PHASE_COLOR;
-  const phaseId = `${state.currentDomain}-${slugify(phase.name)}`;
-  const weeks = domain.weeks.filter((week) => phase.weeks.includes(week.w));
-
-  return `
-    <section
-      class="phase-group"
-      aria-labelledby="${phaseId}"
-      style="--phase-accent: ${phaseColor.text}; --phase-tint: ${phaseColor.badge};"
-    >
-      <h3 class="phase-heading" id="${phaseId}">${escapeHTML(phase.name)}</h3>
-      <div class="week-list">
-        ${weeks.map((week) => renderWeekCard(week)).join("")}
-      </div>
-    </section>
-  `;
+  </section>`;
 }
 
 function renderTabs() {
-  tabsElement.innerHTML = Object.entries(DOMAINS)
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = Object.entries(DOMAINS)
     .map(
-      ([key, domain]) => `
-        <button
-          class="tab-button"
-          type="button"
-          role="tab"
-          id="tab-${key}"
-          aria-selected="${key === state.currentDomain}"
-          aria-controls="roadmap-panel"
-          tabindex="${key === state.currentDomain ? "0" : "-1"}"
-          data-domain="${key}"
-        >
-          ${escapeHTML(domain.label)}
-        </button>
-      `
+      ([key, d]) => `
+    <button
+      type="button"
+      class="tab-btn"
+      role="tab"
+      id="tab-${key}"
+      data-domain="${key}"
+      aria-selected="${key === currentDomain}"
+      aria-controls="content"
+      tabindex="${key === currentDomain ? '0' : '-1'}"
+    >${escapeHtml(d.label)}</button>`
     )
-    .join("");
+    .join('');
 }
 
-function renderContent() {
-  const domain = DOMAINS[state.currentDomain];
-  const projectCount = getProjectCount(domain.weeks);
-
-  contentElement.innerHTML = `
-    <section
-      class="domain-panel"
-      id="roadmap-panel"
-      role="tabpanel"
-      aria-labelledby="tab-${state.currentDomain}"
-      style="--domain-accent: ${domain.color}; --domain-tint: ${domain.bg}; --domain-accent-soft: ${domain.darkColor};"
-    >
-      <header class="domain-intro">
-        <section class="domain-summary" aria-labelledby="domain-title-${state.currentDomain}">
-          <p class="domain-label">Selected track</p>
-          <h2 class="domain-name" id="domain-title-${state.currentDomain}">${escapeHTML(domain.label)}</h2>
-          <p class="domain-copy">
-            An 18-week path broken into clear phases, hands-on tasks, and milestone projects you can turn into portfolio work.
-          </p>
-          <div class="domain-stats" aria-label="Roadmap statistics">
-            <span class="stat-pill">${domain.weeks.length} weeks</span>
-            <span class="stat-pill">${domain.phases.length} phases</span>
-            <span class="stat-pill">${projectCount} ${projectCount === 1 ? "project milestone" : "project milestones"}</span>
-          </div>
-        </section>
-
-        <aside class="prerequisite-card" aria-labelledby="prereq-title-${state.currentDomain}">
-          <p class="card-label" id="prereq-title-${state.currentDomain}">Before you start</p>
-          <p class="card-copy">${escapeHTML(domain.prereq)}</p>
-        </aside>
-      </header>
-
-      ${domain.phases.map((phase) => renderPhaseSection(phase, domain)).join("")}
-
-      <section class="summary-grid" aria-label="Roadmap wrap-up">
-        <article class="summary-card summary-card--accent">
-          <h3 class="summary-title">Final outcome</h3>
-          <p class="summary-copy">${escapeHTML(domain.outcome)}</p>
-        </article>
-
-        <article class="summary-card">
-          <h3 class="summary-title">Common mistakes to avoid</h3>
-          ${renderList(domain.mistakes)}
-        </article>
-      </section>
-    </section>
-  `;
-}
-
-function setDomain(domainKey) {
-  if (!DOMAINS[domainKey] || domainKey === state.currentDomain) {
-    return;
-  }
-
-  state.currentDomain = domainKey;
-  state.openWeeks.clear();
+function switchDomain(key) {
+  if (!DOMAINS[key]) return;
+  currentDomain = key;
   renderTabs();
   renderContent();
 }
 
-function toggleWeek(weekNumber) {
-  if (state.openWeeks.has(weekNumber)) {
-    state.openWeeks.delete(weekNumber);
-  } else {
-    state.openWeeks.add(weekNumber);
-  }
+function renderContent() {
+  const d = DOMAINS[currentDomain];
+  const weekPhaseMap = {};
+  d.phases.forEach((p) => p.weeks.forEach((w) => { weekPhaseMap[w] = p.name; }));
 
-  renderContent();
+  let html = '';
 
-  const activeButton = contentElement.querySelector(`[data-week-toggle][data-week="${weekNumber}"]`);
-  if (activeButton) {
-    activeButton.focus();
-  }
+  html += `<div class="prereq-box">
+    <span class="prereq-icon" aria-hidden="true">📋</span>
+    <div class="prereq-text"><strong>Prerequisites:</strong> ${escapeHtml(d.prereq)}</div>
+  </div>`;
+
+  html += renderDomainCourseBlock(currentDomain);
+
+  let lastPhase = null;
+  d.weeks.forEach((wk) => {
+    const phase = weekPhaseMap[wk.w];
+    if (phase !== lastPhase) {
+      const pc = PHASE_COLORS[phase] || { text: '#5F5E5A' };
+      html += `<div class="phase-label" style="color:${pc.text}">Phase: ${escapeHtml(phase)}</div>`;
+      lastPhase = phase;
+    }
+
+    const hasProject = Boolean(wk.project);
+    html += `<div class="week-card">
+      <button
+        type="button"
+        class="week-toggle"
+        data-week="${wk.w}"
+        aria-expanded="false"
+        aria-controls="body-${wk.w}"
+        id="toggle-${wk.w}"
+      >
+        <span class="week-badge" style="background:${d.bg};color:${d.color}">${escapeHtml(`Week ${wk.w}`)}</span>
+        <span class="week-title">${escapeHtml(wk.title)}</span>
+        <span class="week-tag">${escapeHtml(wk.tag)}</span>
+        ${hasProject ? '<span class="week-tag week-tag--project"><span aria-hidden="true">🏗 </span>Project</span>' : ''}
+        <span class="chevron" aria-hidden="true" id="chev-${wk.w}">▾</span>
+      </button>
+      <div class="week-body" id="body-${wk.w}" role="region" aria-labelledby="toggle-${wk.w}" hidden>
+        <div class="section-head">Topics</div>
+        <ul class="bullet-list">${wk.topics.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+        <div class="section-head">Practical tasks</div>
+        <ul class="bullet-list">${wk.tasks.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+        <div class="section-head">Resources</div>
+        <div>${wk.resources.map((r) => `<span class="resource-chip">${escapeHtml(r)}</span>`).join('')}</div>
+        ${
+          wk.project
+            ? `<div class="project-banner" style="background:${d.bg};color:${d.color};border-color:${d.color}40"><span aria-hidden="true">🏗 </span>${escapeHtml(wk.project)}</div>`
+            : ''
+        }
+      </div>
+    </div>`;
+  });
+
+  html += `<div class="outcome-box">
+    <h2>Final outcome</h2>
+    <p>${escapeHtml(d.outcome)}</p>
+  </div>`;
+
+  html += `<div class="mistakes-box">
+    <h2>Common mistakes to avoid</h2>
+    <ul class="bullet-list">${d.mistakes.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}</ul>
+  </div>`;
+
+  const panel = document.getElementById('content');
+  panel.innerHTML = html;
+  panel.setAttribute('aria-labelledby', `tab-${currentDomain}`);
 }
 
-function handleTabKeydown(event) {
-  const tabs = Array.from(tabsElement.querySelectorAll("[role='tab']"));
-  const currentIndex = tabs.findIndex((tab) => tab === event.target);
+function toggleWeek(n) {
+  const body = document.getElementById(`body-${n}`);
+  const chev = document.getElementById(`chev-${n}`);
+  const toggle = document.querySelector(`.week-toggle[data-week="${n}"]`);
+  if (!body || !toggle) return;
 
-  if (currentIndex === -1) {
-    return;
-  }
-
-  let nextIndex = currentIndex;
-
-  switch (event.key) {
-    case "ArrowRight":
-    case "ArrowDown":
-      nextIndex = (currentIndex + 1) % tabs.length;
-      break;
-    case "ArrowLeft":
-    case "ArrowUp":
-      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-      break;
-    case "Home":
-      nextIndex = 0;
-      break;
-    case "End":
-      nextIndex = tabs.length - 1;
-      break;
-    default:
-      return;
-  }
-
-  event.preventDefault();
-  const nextDomain = tabs[nextIndex].dataset.domain;
-  setDomain(nextDomain);
-
-  const nextTab = tabsElement.querySelector(`[data-domain="${nextDomain}"]`);
-  if (nextTab) {
-    nextTab.focus();
-  }
+  const isOpen = body.classList.contains('is-open');
+  const next = !isOpen;
+  body.classList.toggle('is-open', next);
+  if (chev) chev.classList.toggle('is-open', next);
+  toggle.setAttribute('aria-expanded', String(next));
+  body.hidden = !next;
 }
 
-// Event delegation keeps the interactive bits lightweight even though the content is re-rendered.
-tabsElement.addEventListener("click", (event) => {
-  const tabButton = event.target.closest("[data-domain]");
-  if (!tabButton) {
-    return;
-  }
+function initRoadmapUi() {
+  const tabsEl = document.getElementById('tabs');
+  const contentEl = document.getElementById('content');
 
-  setDomain(tabButton.dataset.domain);
-});
+  tabsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn || !tabsEl.contains(btn)) return;
+    const { domain } = btn.dataset;
+    if (domain) switchDomain(domain);
+  });
 
-tabsElement.addEventListener("keydown", handleTabKeydown);
+  tabsEl.addEventListener('keydown', (e) => {
+    const keys = Object.keys(DOMAINS);
+    const idx = keys.indexOf(currentDomain);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const dir = e.key === 'ArrowRight' ? 1 : -1;
+      const next = keys[(idx + dir + keys.length) % keys.length];
+      switchDomain(next);
+      document.getElementById(`tab-${next}`)?.focus();
+    }
+  });
 
-contentElement.addEventListener("click", (event) => {
-  const toggleButton = event.target.closest("[data-week-toggle]");
-  if (!toggleButton) {
-    return;
-  }
-
-  toggleWeek(Number(toggleButton.dataset.week));
-});
+  contentEl.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.week-toggle');
+    if (!toggle || !contentEl.contains(toggle)) return;
+    const n = Number(toggle.dataset.week, 10);
+    if (!Number.isNaN(n)) toggleWeek(n);
+  });
+}
 
 renderTabs();
 renderContent();
-  </script>
+initRoadmapUi();
+</script>
 </body>
 </html>
